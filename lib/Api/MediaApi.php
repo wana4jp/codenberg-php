@@ -1,5 +1,18 @@
 <?php
 
+namespace Kanekoelastic\PhpCodenberg\Api;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\MultipartStream;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
+use Kanekoelastic\PhpCodenberg\ApiException;
+use Kanekoelastic\PhpCodenberg\Configuration;
+use Kanekoelastic\PhpCodenberg\HeaderSelector;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
+
 class MediaApi
 {
     /**
