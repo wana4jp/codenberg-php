@@ -1,5 +1,18 @@
 <?php
 
+namespace {{apiPackage}};
+
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\MultipartStream;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
+use {{invokerPackage}}\ApiException;
+use {{invokerPackage}}\Configuration;
+use {{invokerPackage}}\HeaderSelector;
+use {{invokerPackage}}\ObjectSerializer;
+
 {{#operations}}class {{classname}}
 {
     /**
