@@ -1,0 +1,1250 @@
+swagger: '2.0'
+info:
+  description: |
+    印刷APIプラットフォーム「[コーデンベルク](https://codenberg.io/)」はさまざまなシステムと連携することができるように、WebAPIを公開しています。コーデンベルク
+    APIを使って、印刷物の注文はもちろん、テンプレートの登録や可変領域の設定ができます。コーデンベルク
+    APIは、RESTfulな設計なのでかんたんにシステム連携できます。
+  version: 1.0.0
+  title: コーデンベルク APIリファレンス
+  contact:
+    name: 'Support'
+    url: 'https://support.codenberg.io/'
+  termsOfService: 'https://codenberg.io/terms/'
+
+tags:
+  - name: templates
+    description: APIからテンプレート情報を取得できます。
+  - name: orders
+    description: 注文の作成もしくは、注文一覧を取得できます。
+  - name: media
+    description: テンプレートの可変領域に設定するリソース情報を取得できます。
+  - name: template_previews
+    description: テンプレートのプレビューを生成できます。
+  - name: formats
+    description: コーデンベルクが用意しているプロダクト情報を取得できます。用紙サイズや印刷費、選択できる用紙の種類などを取得できます。
+  - name: prefectures
+    description: 注文時に利用する都道府県の一覧を情報取得できます。
+
+paths:
+  /templates:
+    get:
+      tags:
+        - templates
+      summary: Get template list by query.
+      description: ''
+      operationId: getTemplates
+      produces:
+        - application/json
+      parameters:
+        - name: q
+          in: query
+          type: string
+          description: 検索文字列を指定します。template名、キーワードが対象となります。
+        - name: sort
+          in: query
+          description: id/format_id/name/keywords/created_atを指定できます。
+          type: string
+          enum:
+            - id
+            - format_id
+            - name
+            - keywords
+            - created_at
+          default: id
+        - name: direction
+          in: query
+          description: 項目の並び順を指定します。asc(昇順)/desc(降順)
+          type: string
+          enum:
+            - asc
+            - desc
+          default: desc
+        - name: per_page
+          in: query
+          description: '1ページあたりの取得項目数。最大:50件'
+          type: integer
+          format: int64
+          default: 10
+        - name: page
+          in: query
+          description: ページ番号を指定。
+          type: integer
+          format: int64
+          default: 1
+        - name: including_private
+          in: query
+          description: 非公開のテンプレートを含めるかどうかを指定します。
+          type: boolean
+          default: false
+        - name: including_custom_fields
+          in: query
+          description: 可変領域の情報を含めるかを設定します。
+          type: boolean
+          default: false
+        - name: including_formats
+          in: query
+          description: フォーマットの情報を含めるかを設定します。
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TemplateList'
+        '400':
+          description: 入力が受付られない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/templates/{template_id}':
+    get:
+      tags:
+        - templates
+      summary: Find template by ID
+      description: 指定したテンプレートの詳細情報を返します。
+      operationId: getTemplateById
+      produces:
+        - application/json
+      parameters:
+        - name: template_id
+          in: path
+          description: テンプレートのIDを指定します。
+          required: true
+          type: integer
+          format: int64
+        - name: including_custom_fields
+          in: query
+          type: boolean
+          required: false
+          description: 可変領域の情報を含めるかを設定します。
+          default: true
+        - name: including_formats
+          in: query
+          type: boolean
+          required: false
+          description: フォーマットの情報を含めるかを設定します。
+          default: false
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Template'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  /template_previews:
+    post:
+      tags:
+        - template_previews
+      summary: Request creating template preview
+      description: 指定したテンプレートのプレビューの生成をリクエストします。
+      operationId: createTemplatePreview
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: プレビューの生成条件を指定します。
+          required: true
+          schema:
+            $ref: '#/definitions/PreviewRequest'
+      responses:
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/TemplatePreview'
+        '403':
+          description: 認証に失敗した場合
+        '404':
+          description: テンプレートが存在しない場合
+        '422':
+          description: パラメータに不備がある場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/template_previews/{template_preview_id}':
+    get:
+      tags:
+        - template_previews
+      summary: Get preview
+      description: 指定したプレビューを取得します。
+      operationId: getTemplatePreview
+      produces:
+        - application/json
+      parameters:
+        - name: template_preview_id
+          in: path
+          description: プレビューのIDを指定
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TemplatePreview'
+        '403':
+          description: 認証に失敗した場合
+        '404':
+          description: プレビューが存在しない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  /formats:
+    get:
+      tags:
+        - formats
+      summary: Get format list by query
+      description: 利用可能なプロダクトの一覧を返します。
+      operationId: getFormats
+      produces:
+        - application/json
+      parameters:
+        - name: q
+          in: query
+          type: string
+          description: 検索文字列。format名、用途から検索できます。
+        - name: sort
+          in: query
+          type: string
+          description: 並び順の基準とする項目を指定します。
+          enum:
+            - id
+            - name
+          default: id
+        - name: direction
+          in: query
+          type: string
+          description: 項目の並び順を指定します。
+          enum:
+            - asc
+            - desc
+          default: desc
+        - name: per_page
+          in: query
+          type: integer
+          format: int64
+          description: 1ページあたりの取得項目数。最大50件
+          default: 10
+        - name: page
+          in: query
+          type: integer
+          format: int64
+          description: ページ番号を指定します。
+          default: 1
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/FormatList'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/formats/{format_id}':
+    get:
+      tags:
+        - formats
+      summary: Get format informatino by ID
+      description: 指定したフォーマットの詳細情報を返します。
+      operationId: getFormatById
+      produces:
+        - application/json
+      parameters:
+        - name: format_id
+          in: path
+          description: フォーマットのIDを指定
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Format'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  /orders:
+    get:
+      tags:
+        - orders
+      summary: Get order list
+      description: 注文一覧を取得します。
+      operationId: getOrders
+      produces:
+        - application/json
+      parameters:
+        - name: sort
+          in: query
+          type: string
+          description: 並び順の基準とする項目を指定します。
+          enum:
+            - id
+            - created_at
+            - status
+            - quantity
+          default: id
+        - name: direction
+          in: query
+          type: string
+          description: 項目の並び順を指定します。
+          enum:
+            - asc
+            - desc
+          default: desc
+        - name: per_page
+          in: query
+          type: integer
+          format: int64
+          description: 1ページあたりの取得項目数。最大50件
+          default: 10
+        - name: page
+          in: query
+          type: integer
+          format: int64
+          description: ページ番号を指定します。
+          default: 1
+        - name: range_key
+          in: query
+          type: string
+          description: 絞り込みを行う日付を指定します。
+          enum:
+            - created_at
+            - updated_at
+          default: created_at
+        - name: from
+          in: query
+          description: 指定すると指定した日付以降の項目を抽出します。
+          type: string
+        - name: to
+          in: query
+          description: 指定すると指定した日付以前の項目を抽出します。
+          type: string
+        - name: including_test
+          in: query
+          description: テストモードで登録した注文を含めるかどうかを指定します。
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderList'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+    post:
+      tags:
+        - orders
+      summary: Create new order from template
+      description: テンプレートから注文を作成します。
+      operationId: createOrder
+      parameters:
+        - in: body
+          name: body
+          description: 作成する注文内容を指定します
+          required: true
+          schema:
+            $ref: '#/definitions/CreateOrderRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Order'
+        '400':
+          description: 入力が受け付けられない場合
+        '422':
+          description: 注文情報の形式が正しくない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/orders/{id}':
+    get:
+      tags:
+        - orders
+      summary: Get order by Id
+      description: 注文の詳細情報を返します。
+      operationId: getOrderById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 注文のIDを指定します。
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Order'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/orders/{order_group_id}/order/{order_id}/status':
+    get:
+      tags:
+        - orders
+      summary: Get delivery address status for change
+      description: >-
+        配送先変更の可否情報を返します。
+        注文の配送先変更は印刷ステータスが「印刷待ち」「印刷中」まで受け付けています。
+        印刷ステータスについては「[印刷ステータスについて](https://github.com/friday-night/codenberg-api-reference/wiki/%E5%8D%B0%E5%88%B7%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)」を参照してください。
+      operationId: getDeliveryStatus
+      produces:
+        - application/json
+      parameters:
+        - name: order_group_id
+          in: path
+          description: 注文のグループIDを指定します
+          required: true
+          type: integer
+          format: int64
+        - name: order_id
+          in: path
+          description: 注文Idを指定します
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/StatusAndMessage'
+        '422':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/orders/{order_group_id}/order/{order_id}':
+    post:
+      tags:
+        - orders
+      summary: Change delivery address
+      description: >-
+        配送先変更を行います。
+        配送先の変更は指定したパラメータのみ、行うことが可能です。指定できるパラメータは下記を参照して下さい。
+        パラメータ内の値の形式・制約などについては「注文作成-シングル」のパラメータと同様です。 
+        注文の配送先変更は印刷ステータスが「印刷待ち」「印刷中」まで受け付けています。
+        印刷ステータスについては「[印刷ステータスについて](https://github.com/friday-night/codenberg-api-reference/wiki/%E5%8D%B0%E5%88%B7%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)」を参照してください。
+      operationId: updateDeliveryStatus
+      produces:
+        - application/json
+      parameters:
+        - name: order_group_id
+          in: path
+          description: 注文のグループIDを指定します
+          required: true
+          type: integer
+          format: int64
+        - name: order_id
+          in: path
+          description: 注文Idを指定します
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: 配送先の変更内容を指定します。
+          required: true
+          schema:
+            $ref: '#/definitions/ChangeDeliveryAddressRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderDetail'
+        '422':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/orders/{id}/cancel_status':
+    get:
+      tags:
+        - orders
+      summary: Get cancel order status
+      description: >-
+        注文キャンセルの可否情報を返します。
+        注文のキャンセルは印刷ステータスが「印刷待ち」まで受け付けています。
+        印刷ステータスについては「[印刷ステータスについて](https://github.com/friday-night/codenberg-api-reference/wiki/%E5%8D%B0%E5%88%B7%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)」を参照してください。
+      operationId: getCancelStatus
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 注文のIDを指定します。
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/StatusAndMessage'
+        '422':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/orders/{id}/cancel':
+    put:
+      tags:
+        - orders
+      summary: Cancel order
+      description: >-
+        注文をキャンセルします。
+        注文のキャンセルは印刷ステータスが「印刷待ち」まで受け付けています。
+        印刷ステータスについては「[印刷ステータスについて](https://github.com/friday-night/codenberg-api-reference/wiki/%E5%8D%B0%E5%88%B7%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)」を参照してください。
+      operationId: cancelOrder
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 注文のIDを指定します。
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/StatusAndMessage'
+        '422':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  /media:
+    get:
+      tags:
+        - media
+      summary: Get media list
+      description: 登録されているメディアの一覧を返します。
+      operationId: getMedia
+      produces:
+        - application/json
+      parameters:
+        - name: q
+          in: query
+          type: string
+          description: 指定して文字でファイル名を対象に検索します。
+        - name: sort
+          in: query
+          type: string
+          description: 並び順の基準とする項目を指定します。
+          enum:
+            - id
+            - name
+            - created_at
+          default: id
+        - name: direction
+          in: query
+          type: string
+          description: 項目の並び順を指定します。
+          enum:
+            - asc
+            - desc
+          default: desc
+        - name: per_page
+          in: query
+          type: integer
+          format: int64
+          description: 1ページあたりの取得項目数。最大50件
+          default: 10
+        - name: page
+          in: query
+          type: integer
+          format: int64
+          description: ページ番号を指定します。
+          default: 1
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/MediaList'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  '/media/{media_id}':
+    get:
+      tags:
+        - media
+      summary: Get media information by ID
+      description: 登録されているメディアの詳細を返します。
+      operationId: getMediaById
+      produces:
+        - application/json
+      parameters:
+        - name: media_id
+          in: path
+          description: 取得するメディアIDを指定します
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Medium'
+        '400':
+          description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - '*'
+  /prefectures:
+    get:
+      tags:
+        - prefectures
+      summary: Get prefectures list
+      description: コーデンベルクで扱うことができる都道府県の県名とコードの一覧を返します。
+      operationId: getPrefectures
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Prefecture'
+      security:
+        - codenberg_auth:
+          - '*'
+securityDefinitions:
+  codenberg_auth:
+    type: oauth2
+    flow: application
+    tokenUrl: 'https://api.codenberg.io/v1/auth/token'
+    scopes:
+      '*': version 1においてscopeは送信不要です。
+definitions:
+  TemplateQuery:
+    type: object
+    properties:
+      q:
+        type: string
+        description: 検索文字列を指定します。template名、キーワードが対象となります。
+      sort:
+        description: id/format_id/name/keywords/created_atを指定できます。
+        type: string
+        enum:
+          - id
+          - format_id
+          - name
+          - keywords
+          - created_at
+        default: id
+      direction:
+        description: 項目の並び順を指定します。asc(昇順)/desc(降順)
+        type: string
+        enum:
+          - asc
+          - desc
+        default: desc
+      per_page:
+        description: 1ページあたりの取得項目数。最大:50件
+        type: integer
+        format: int64
+        default: 10
+      page:
+        description: ページ番号を指定。
+        type: integer
+        format: int64
+        default: 1
+      including_private:
+        description: 非公開のテンプレートを含めるかどうかを指定します。
+        type: boolean
+        default: false
+      including_custom_fields:
+        description: 可変領域の情報を含めるかを設定します。
+        type: boolean
+        default: false
+      including_formats:
+        description: フォーマットの情報を含めるかを設定します。
+        type: boolean
+        default: false
+  TemplateList:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      page:
+        type: integer
+        format: int64
+      per_page:
+        type: integer
+        format: int64
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/Template'
+  Template:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+        description: 名称
+      keywords:
+        type: string
+        description: キーワード
+      comment:
+        type: string
+        description: コメント
+      thumb:
+        type: object
+        description: サムネール
+        properties:
+          small:
+            type: string
+          large:
+            type: string
+      pdf:
+        type: string
+        description: PDFファイルのURL
+      page_count:
+        type: integer
+        format: int64
+        description: ページ数
+      selected_paper:
+        $ref: '#/definitions/Paper'
+      moq:
+        type: integer
+        format: int64
+        description: 最小注文数
+      spq:
+        type: integer
+        format: int64
+        description: 注文単位
+      lot_price:
+        type: array
+        description: 注文数別の注文価格
+        items:
+          $ref: '#/definitions/LotPrice'
+      format_id:
+        type: integer
+        description: プロダクトのID
+        format: int64
+      format:
+        $ref: '#/definitions/Format'
+      custom_fields:
+        type: array
+        description: 設定されている可変領域の情報
+        items:
+          $ref: '#/definitions/CustomField'
+      status:
+        type: string
+        description: ステータス
+        enum:
+          - public
+          - private
+      created_at:
+        type: string
+        format: date-time
+        description: 作成日時
+      updated_at:
+        type: string
+        format: date-time
+        description: 更新日時
+  LotPrice:
+    type: object
+    properties:
+      quantity:
+        type: integer
+        format: int64
+      price:
+        type: integer
+        format: int64
+  Paper:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      note:
+        type: string
+  CustomField:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      field_type:
+        type: string
+        enum:
+          - text
+          - image
+      default_value:
+        type: string
+      height:
+        type: number
+      width:
+        type: number
+      x:
+        type: number
+      y:
+        type: number
+      rotate:
+        type: number
+      page:
+        type: integer
+        format: int64
+      is_background:
+        type: boolean
+      color_c:
+        type: integer
+        format: int64
+      color_m:
+        type: integer
+        format: int64
+      color_y:
+        type: integer
+        format: int64
+      color_k:
+        type: integer
+        format: int64
+      font:
+        properties:
+          id:
+            type: integer
+            format: int64
+          wid:
+            type: integer
+            format: int64
+          name:
+            type: string
+          name_alias:
+            type: string
+          weight:
+            type: string
+      max_length:
+        type: integer
+        format: int64
+      text_align:
+        type: string
+        enum:
+          - right
+          - center
+          - left
+          - justify
+      text_size:
+        type: integer
+        format: int64
+      tracking:
+        type: integer
+        format: int64
+      writing_mode:
+        type: string
+        enum:
+          - horizontal_tb
+          - vertical_rl
+          - vertical_lr
+      z_index:
+        type: integer
+        format: int64
+  PreviewRequest:
+    type: object
+    properties:
+      template_id:
+        type: string
+        description: テンプレートID
+      page:
+        type: integer
+        format: int64
+        description: プレビューを生成するページを指定します。(0スタートのIndex値)
+      custom_fields:
+        type: array
+        description: 可変領域を指定します。
+        items:
+          $ref: '#/definitions/CustomFieldValue'
+  CustomFieldValue:
+    type: object
+    properties:
+      id:
+        type: string
+        description: カスタムフィールドID
+      value:
+        type: string
+        description: >-
+          テンプレートの可変領域にテキストを設定した時には文字列を指定して下さい。可変領域に画像を設定した時には画像IDか画像ファイル名を指定して下さい。
+  TemplatePreview:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      template_id:
+        type: string
+      generated:
+        type: boolean
+      images:
+        type: array
+        items:
+          type: string
+      error:
+        $ref: '#/definitions/ErrorMessage'
+  ErrorMessage:
+    type: object
+    properties:
+      message:
+        type: string
+  FormatList:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      page:
+        type: integer
+        format: int64
+      per_page:
+        type: integer
+        format: int64
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/Format'
+  Format:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      display_id:
+        type: string
+      name:
+        type: string
+      category:
+        type: string
+        description: カテゴリ名
+      width:
+        type: integer
+        format: int64
+        description: 幅
+      height:
+        type: integer
+        format: int64
+        description: 高さ
+      depth:
+        type: integer
+        format: int64
+        description: 奥行き
+      moq:
+        type: integer
+        format: int64
+        description: 最小注文数
+      spq:
+        type: integer
+        format: int64
+        description: 注文単位
+      lot_price:
+        type: array
+        description: 注文数別の注文価格
+        items:
+          $ref: '#/definitions/LotPrice'
+      purpose:
+        type: array
+        description: 目的
+        items:
+          type: string
+      note:
+        type: string
+        description: 備考
+      file:
+        type: string
+        description: プロダクトのテンプレートファイル
+      main_image:
+        type: string
+        description: プロダクトのサムネール画像
+      selectable_papers:
+        type: array
+        description: 利用可能な紙
+        items:
+          $ref: '#/definitions/Paper'
+  OrderList:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      page:
+        type: integer
+        format: int64
+      per_page:
+        type: integer
+        format: int64
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/Order'
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      display_id:
+        type: string
+        description: 注文番号
+      printing_fee:
+        type: integer
+        format: int64
+        description: 印刷費
+      sub_total:
+        type: integer
+        format: int64
+        description: 小計
+      consumption_tax:
+        type: integer
+        format: int64
+        description: 消費税
+      delivery_fee:
+        type: integer
+        format: int64
+        description: 梱包・配送費
+      total:
+        type: integer
+        format: int64
+        description: 合計
+      total_quantity:
+        type: integer
+        format: int64
+        description: 合計印刷数
+      total_number:
+        type: integer
+        format: int64
+        description: 合計注文数（total_quantityのシノニム）
+      orders:
+        type: array
+        description: 注文明細一覧
+        items:
+          $ref: '#/definitions/OrderDetail'
+  OrderDetail:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      display_id:
+        type: string
+        description: 注文明細番号
+      name:
+        type: string
+        description: "配送先:名称"
+      pref:
+        $ref: '#/definitions/Prefecture'
+      postal_code:
+        description: "配送先:郵便番号"
+        type: string
+      city:
+        description: "配送先:市区町村"
+        type: string
+      address_line1:
+        description: "配送先:住所1"
+        type: string
+      address_line2:
+        description: "配送先:住所2"
+        type: string
+      organization:
+        description: "配送先:組織、会社名"
+        type: string
+      tel:
+        description: "配送先:電話番号"
+        type: string
+      quantity:
+        type: integer
+        format: int64
+        description: 注文数（total_quantityのシノニム）
+      order_number:
+        type: integer
+        format: int64
+        description: 注文数（total_quantityのシノニム）
+      template_id:
+        type: integer
+        format: int64
+        description: 注文対象のテンプレートID
+      custom_fields:
+        type: array
+        description: 設定した可変領域の値
+        items:
+          $ref: '#/definitions/CustomFieldValue'
+      status:
+        description: ステータス
+        type: string
+        enum:
+          - checking
+          - printing
+          - delivery_preparation
+          - delivery
+      payment_status:
+        description: 支払決済ステータス
+        type: string
+        enum:
+          - unpaid
+          - paid
+          - failed
+      created_at:
+        type: string
+        format: date-time
+        description: 注文日時
+      updated_at:
+        type: string
+        format: date-time
+        description: 情報更新日時
+  Prefecture:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+        description: 県名
+  CreateOrderRequest:
+    type: object
+    properties:
+      template_id:
+        type: string
+        description: テンプレートIDを指定します。
+      confirmation:
+        type: boolean
+        description: trueを設定すると実際の登録は行われません。
+      name:
+        type: string
+        description: "配送先:名称"
+      pref:
+        type: string
+        description: "配送先:都道府県名または都道府県id"
+      postal_code:
+        type: string
+        description: "配送先:郵便番号"
+      city:
+        type: string
+        description: "配送先:市区町村"
+      address_line1:
+        type: string
+        description: "配送先:番地"
+      address_line2:
+        type: string
+        description: "配送先:建物名"
+      organization:
+        type: string
+        description: "配送先:組織名"
+      tel:
+        type: string
+        description: 配送先:電話番号"
+      quantity:
+        type: integer
+        format: int64
+        default: 1
+        description: 注文数
+      custom_fields:
+        type: array
+        description: 可変領域。*ordersが指定されていると無視されます。
+        items:
+          $ref: '#/definitions/CustomFieldValue'
+      orders:
+        type: array
+        description: 異なる可変領域指定の注文を一括で作成する場合に利用します。
+        items:
+          $ref: '#/definitions/CustomFieldValueGroup'
+  CustomFieldValueGroup:
+    type: array
+    items:
+      $ref: '#/definitions/CustomFieldValue'
+  StatusAndMessage:
+    type: object
+    properties:
+      result:
+        type: boolean
+      message:
+        type: string
+  ChangeDeliveryAddressRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: "配送先:名称"
+      pref:
+        type: string
+        description: "配送先:都道府県名または都道府県id"
+      postal_code:
+        type: string
+        description: "配送先:郵便番号"
+      city:
+        type: string
+        description: "配送先:市区町村"
+      address_line1:
+        type: string
+        description: "配送先:番地"
+      address_line2:
+        type: string
+        description: "配送先:建物名"
+      organization:
+        type: string
+        description: "配送先:組織名"
+      tel:
+        type: string
+        description: 配送先:電話番号"
+  MediaList:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      page:
+        type: integer
+        format: int64
+      per_page:
+        type: integer
+        format: int64
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/Medium'
+  Medium:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      file:
+        type: string
+      thumb:
+        type: array
+        items:
+          type: object
+          properties:
+            default:
+              type: string
+            square:
+              type: string
+      created_at:
+        type: string
+        format: date-time
+schemes:
+ - https
+host: api.codenberg.io
+basePath: /v1

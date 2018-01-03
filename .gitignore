@@ -1,4 +1,4 @@
-/vendor/
-/dist/
-openapi
 .DS_Store
+.env
+/dist/
+/vendor/
