@@ -49,11 +49,11 @@ class Configuration
     protected $host = 'https://api.codenberg.io/v1';
 
     /**
-     * User agent of the HTTP request, set to "PHP-Swagger" by default
+     * User agent of the HTTP request
      *
      * @var string
      */
-    protected $userAgent = 'Swagger-Codegen/1.0.0/php';
+    protected $userAgent = 'Codenberg-Php/1.0.0/php';
 
     /**
      * Debug switch (default set to false)
