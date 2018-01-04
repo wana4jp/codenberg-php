@@ -7,18 +7,18 @@ class Configuration
     private static $defaultConfiguration;
 
     /**
-     * Associate array to store API key(s)
+     * API key
      *
-     * @var string[]
+     * @var string
      */
-    protected $apiKeys = [];
+    protected $apiKey= '';
 
     /**
-     * Associate array to store API prefix
+     * Secret key
      *
-     * @var string[]
+     * @var string
      */
-    protected $apiKeyPrefixes = [];
+    protected $secretKey = '';
 
     /**
      * Access token for OAuth
@@ -26,20 +26,6 @@ class Configuration
      * @var string
      */
     protected $accessToken = '';
-
-    /**
-     * Username for HTTP basic authentication
-     *
-     * @var string
-     */
-    protected $username = '';
-
-    /**
-     * Password for HTTP basic authentication
-     *
-     * @var string
-     */
-    protected $password = '';
 
     /**
      * The host
@@ -85,55 +71,49 @@ class Configuration
     }
 
     /**
-     * Sets API key
+     * Sets the API key
      *
-     * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $key              API key or token
+     * @param string $apiKey
      *
      * @return $this
      */
-    public function setApiKey($apiKeyIdentifier, $key)
+    public function setApiKey($apiKey)
     {
-        $this->apiKeys[$apiKeyIdentifier] = $key;
+        $this->apiKey = $apiKey;
         return $this;
     }
 
     /**
-     * Gets API key
+     * Gets the API key
      *
-     * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     *
-     * @return string API key or token
+     * @return string API Key
      */
-    public function getApiKey($apiKeyIdentifier)
+    public function getApiKey()
     {
-        return isset($this->apiKeys[$apiKeyIdentifier]) ? $this->apiKeys[$apiKeyIdentifier] : null;
+        return $this->apiKey;
     }
 
     /**
-     * Sets the prefix for API key (e.g. Bearer)
+     * Sets the Secret key
      *
-     * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $prefix           API key prefix, e.g. Bearer
+     * @param string $secretKey
      *
      * @return $this
      */
-    public function setApiKeyPrefix($apiKeyIdentifier, $prefix)
+    public function setSecretKey($secretKey)
     {
-        $this->apiKeyPrefixes[$apiKeyIdentifier] = $prefix;
+        $this->secretKey = $secretKey;
         return $this;
     }
 
     /**
-     * Gets API key prefix
+     * Gets the Secret key
      *
-     * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     *
-     * @return string
+     * @return string Secret key
      */
-    public function getApiKeyPrefix($apiKeyIdentifier)
+    public function getSecretKey()
     {
-        return isset($this->apiKeyPrefixes[$apiKeyIdentifier]) ? $this->apiKeyPrefixes[$apiKeyIdentifier] : null;
+        return $this->secretKey;
     }
 
     /**
@@ -366,30 +346,5 @@ class Configuration
         $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
 
         return $report;
-    }
-
-    /**
-     * Get API key (with prefix if set)
-     *
-     * @param  string $apiKeyIdentifier name of apikey
-     *
-     * @return string API key with the prefix
-     */
-    public function getApiKeyWithPrefix($apiKeyIdentifier)
-    {
-        $prefix = $this->getApiKeyPrefix($apiKeyIdentifier);
-        $apiKey = $this->getApiKey($apiKeyIdentifier);
-
-        if ($apiKey === null) {
-            return null;
-        }
-
-        if ($prefix === null) {
-            $keyWithPrefix = $apiKey;
-        } else {
-            $keyWithPrefix = $prefix . ' ' . $apiKey;
-        }
-
-        return $keyWithPrefix;
     }
 }
