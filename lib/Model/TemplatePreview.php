@@ -5,14 +5,6 @@ namespace Kanekoelastic\PhpCodenberg\Model;
 use \ArrayAccess;
 use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
-/**
- * TemplatePreview Class Doc Comment
- *
- * @category Class
- * @package  Kanekoelastic\PhpCodenberg
- * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
- */
 class TemplatePreview implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;

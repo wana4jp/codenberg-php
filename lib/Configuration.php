@@ -81,12 +81,6 @@ class Configuration
      */
     public function __construct()
     {
-        // TODO set param from DotEnv
-        $dotenv = new Dotenv\Dotenv(__DIR__);
-        $dotenv->load();
-        $this->setApiKey('default', getenv('CODENBERG_API_KEY'));
-        $this->setAccessToken(getenv('CODENBERG_API_SECRET'));
-
         $this->tempFolderPath = sys_get_temp_dir();
     }
 

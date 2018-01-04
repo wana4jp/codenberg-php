@@ -5,15 +5,6 @@ namespace Kanekoelastic\PhpCodenberg\Model;
 use \ArrayAccess;
 use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
-/**
- * TemplateThumb Class Doc Comment
- *
- * @category Class
- * @description サムネール
- * @package  Kanekoelastic\PhpCodenberg
- * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
- */
 class TemplateThumb implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
