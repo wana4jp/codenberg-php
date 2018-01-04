@@ -26,6 +26,28 @@ tags:
     description: 注文時に利用する都道府県の一覧を情報取得できます。
 
 paths:
+  /auth/token:
+    get:
+      tags:
+        - auth
+      summary: getAccessToken
+      description: getAccessToken
+      operationId: getAccessToken
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Authorization
+          required: true
+      responses:
+        '200':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/AccessToken'
+        '401':
+          description: 認証に失敗した場合
   /templates:
     get:
       tags:
@@ -632,6 +654,19 @@ securityDefinitions:
     scopes:
       '*': version 1においてscopeは送信不要です。
 definitions:
+  AccessToken:
+    type: object
+    properties:
+      token_type:
+        type: string
+        description: token_type
+      access_token:
+        type: string
+        description: access_token
+      expires:
+        description: token expire date
+        type: string
+        format: date-time
   TemplateQuery:
     type: object
     properties:
