@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg;
 
-class TemplatePreviewTest extends \PHPUnit\Framework\TestCase
+class AccessTokenTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Setup before running any test case.
@@ -33,44 +33,30 @@ class TemplatePreviewTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test "TemplatePreview".
+     * Test "AccessToken".
      */
-    public function testTemplatePreview()
+    public function testAccessToken()
     {
     }
 
     /**
-     * Test attribute "id".
+     * Test attribute "tokenType".
      */
-    public function testPropertyId()
+    public function testPropertyTokenType()
     {
     }
 
     /**
-     * Test attribute "templateId".
+     * Test attribute "accessToken".
      */
-    public function testPropertyTemplateId()
+    public function testPropertyAccessToken()
     {
     }
 
     /**
-     * Test attribute "generated".
+     * Test attribute "expires".
      */
-    public function testPropertyGenerated()
-    {
-    }
-
-    /**
-     * Test attribute "images".
-     */
-    public function testPropertyImages()
-    {
-    }
-
-    /**
-     * Test attribute "error".
-     */
-    public function testPropertyError()
+    public function testPropertyExpires()
     {
     }
 }

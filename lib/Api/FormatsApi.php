@@ -49,11 +49,11 @@ class FormatsApi
     }
 
     /**
-     * Operation getFormatById
+     * Operation getFormatById.
      *
      * Get format informatino by ID
      *
-     * @param  int $formatId フォーマットのIDを指定 (required)
+     * @param int $formatId フォーマットのIDを指定 (required)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -66,11 +66,11 @@ class FormatsApi
     }
 
     /**
-     * Operation getFormatByIdWithHttpInfo
+     * Operation getFormatByIdWithHttpInfo.
      *
      * Get format informatino by ID
      *
-     * @param  int $formatId フォーマットのIDを指定 (required)
+     * @param int $formatId フォーマットのIDを指定 (required)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -83,6 +83,7 @@ class FormatsApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
@@ -110,10 +111,12 @@ class FormatsApi
             }
 
             $responseBody = $response->getBody();
+
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
+
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -122,9 +125,8 @@ class FormatsApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -141,11 +143,11 @@ class FormatsApi
     }
 
     /**
-     * Operation getFormatByIdAsync
+     * Operation getFormatByIdAsync.
      *
      * Get format informatino by ID
      *
-     * @param  int $formatId フォーマットのIDを指定 (required)
+     * @param int $formatId フォーマットのIDを指定 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -161,11 +163,11 @@ class FormatsApi
     }
 
     /**
-     * Operation getFormatByIdAsyncWithHttpInfo
+     * Operation getFormatByIdAsyncWithHttpInfo.
      *
      * Get format informatino by ID
      *
-     * @param  int $formatId フォーマットのIDを指定 (required)
+     * @param int $formatId フォーマットのIDを指定 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -180,10 +182,12 @@ class FormatsApi
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
+
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
+
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -192,7 +196,7 @@ class FormatsApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
@@ -213,9 +217,193 @@ class FormatsApi
     }
 
     /**
-     * Create request for operation 'getFormatById'
+     * Operation getFormats.
      *
-     * @param  int $formatId フォーマットのIDを指定 (required)
+     * Get format list by query
+     *
+     * @param string $q         検索文字列。format名、用途から検索できます。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Kanekoelastic\PhpCodenberg\Model\FormatList
+     */
+    public function getFormats($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
+    {
+        list($response) = $this->getFormatsWithHttpInfo($q, $sort, $direction, $perPage, $page);
+        return $response;
+    }
+
+    /**
+     * Operation getFormatsWithHttpInfo.
+     *
+     * Get format list by query
+     *
+     * @param string $q         検索文字列。format名、用途から検索できます。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Kanekoelastic\PhpCodenberg\Model\FormatList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFormatsWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\FormatList';
+        $request = $this->getFormatsRequest($q, $sort, $direction, $perPage, $page);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders(),
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Kanekoelastic\PhpCodenberg\Model\FormatList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFormatsAsync.
+     *
+     * Get format list by query
+     *
+     * @param string $q         検索文字列。format名、用途から検索できます。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFormatsAsync($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
+    {
+        return $this->getFormatsAsyncWithHttpInfo($q, $sort, $direction, $perPage, $page)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFormatsAsyncWithHttpInfo.
+     *
+     * Get format list by query
+     *
+     * @param string $q         検索文字列。format名、用途から検索できます。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFormatsAsyncWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\FormatList';
+        $request = $this->getFormatsRequest($q, $sort, $direction, $perPage, $page);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders(),
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFormatById'.
+     *
+     * @param int $formatId フォーマットのIDを指定 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -235,7 +423,6 @@ class FormatsApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
-
 
         // path params
         if ($formatId !== null) {
@@ -271,18 +458,17 @@ class FormatsApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -295,6 +481,7 @@ class FormatsApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -315,200 +502,19 @@ class FormatsApi
     }
 
     /**
-     * Operation getFormats
+     * Create request for operation 'getFormats'.
      *
-     * Get format list by query
-     *
-     * @param  string $q 検索文字列。format名、用途から検索できます。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Kanekoelastic\PhpCodenberg\Model\FormatList
-     */
-    public function getFormats($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
-    {
-        list($response) = $this->getFormatsWithHttpInfo($q, $sort, $direction, $perPage, $page);
-        return $response;
-    }
-
-    /**
-     * Operation getFormatsWithHttpInfo
-     *
-     * Get format list by query
-     *
-     * @param  string $q 検索文字列。format名、用途から検索できます。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Kanekoelastic\PhpCodenberg\Model\FormatList, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getFormatsWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\FormatList';
-        $request = $this->getFormatsRequest($q, $sort, $direction, $perPage, $page);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if ($returnType !== 'string') {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Kanekoelastic\PhpCodenberg\Model\FormatList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getFormatsAsync
-     *
-     * Get format list by query
-     *
-     * @param  string $q 検索文字列。format名、用途から検索できます。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getFormatsAsync($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
-    {
-        return $this->getFormatsAsyncWithHttpInfo($q, $sort, $direction, $perPage, $page)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getFormatsAsyncWithHttpInfo
-     *
-     * Get format list by query
-     *
-     * @param  string $q 検索文字列。format名、用途から検索できます。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getFormatsAsyncWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\FormatList';
-        $request = $this->getFormatsRequest($q, $sort, $direction, $perPage, $page);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getFormats'
-     *
-     * @param  string $q 検索文字列。format名、用途から検索できます。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
+     * @param string $q         検索文字列。format名、用途から検索できます。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function getFormatsRequest($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
     {
-
         $resourcePath = '/formats';
         $formParams = [];
         $queryParams = [];
@@ -537,7 +543,6 @@ class FormatsApi
             $queryParams['page'] = ObjectSerializer::toQueryValue($page);
         }
 
-
         // body params
         $_tempBody = null;
 
@@ -563,18 +568,17 @@ class FormatsApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -587,6 +591,7 @@ class FormatsApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -607,7 +612,7 @@ class FormatsApi
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
      * @return array of http client options
@@ -615,8 +620,10 @@ class FormatsApi
     protected function createHttpClientOption()
     {
         $options = [];
+
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

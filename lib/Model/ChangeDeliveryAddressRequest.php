@@ -2,25 +2,25 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use \ArrayAccess;
-use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
+use ArrayAccess;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'ChangeDeliveryAddressRequest';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'name' => 'string',
         'pref' => 'string',
@@ -29,14 +29,14 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
         'addressLine1' => 'string',
         'addressLine2' => 'string',
         'organization' => 'string',
-        'tel' => 'string'
+        'tel' => 'string',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'name' => null,
         'pref' => null,
@@ -45,32 +45,12 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
         'addressLine1' => null,
         'addressLine2' => null,
         'organization' => null,
-        'tel' => null
+        'tel' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerTypes()
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerFormats()
-    {
-        return self::$swaggerFormats;
-    }
-
-    /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
@@ -82,11 +62,11 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
         'addressLine1' => 'address_line1',
         'addressLine2' => 'address_line2',
         'organization' => 'organization',
-        'tel' => 'tel'
+        'tel' => 'tel',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
@@ -98,11 +78,11 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
         'addressLine1' => 'setAddressLine1',
         'addressLine2' => 'setAddressLine2',
         'organization' => 'setOrganization',
-        'tel' => 'setTel'
+        'tel' => 'setTel',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
@@ -114,12 +94,74 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
         'addressLine1' => 'getAddressLine1',
         'addressLine2' => 'getAddressLine2',
         'organization' => 'getOrganization',
-        'tel' => 'getTel'
+        'tel' => 'getTel',
     ];
 
     /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['pref'] = isset($data['pref']) ? $data['pref'] : null;
+        $this->container['postalCode'] = isset($data['postalCode']) ? $data['postalCode'] : null;
+        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
+        $this->container['addressLine1'] = isset($data['addressLine1']) ? $data['addressLine1'] : null;
+        $this->container['addressLine2'] = isset($data['addressLine2']) ? $data['addressLine2'] : null;
+        $this->container['organization'] = isset($data['organization']) ? $data['organization'] : null;
+        $this->container['tel'] = isset($data['tel']) ? $data['tel'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerTypes()
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
+    }
+
+    /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -129,7 +171,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -139,7 +181,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -158,35 +200,6 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['pref'] = isset($data['pref']) ? $data['pref'] : null;
-        $this->container['postalCode'] = isset($data['postalCode']) ? $data['postalCode'] : null;
-        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
-        $this->container['addressLine1'] = isset($data['addressLine1']) ? $data['addressLine1'] : null;
-        $this->container['addressLine2'] = isset($data['addressLine2']) ? $data['addressLine2'] : null;
-        $this->container['organization'] = isset($data['organization']) ? $data['organization'] : null;
-        $this->container['tel'] = isset($data['tel']) ? $data['tel'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -201,19 +214,17 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-
         return true;
     }
 
-
     /**
-     * Gets name
+     * Gets name.
      *
      * @return string
      */
@@ -223,7 +234,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets name
+     * Sets name.
      *
      * @param string $name 配送先:名称
      *
@@ -237,7 +248,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pref
+     * Gets pref.
      *
      * @return string
      */
@@ -247,7 +258,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets pref
+     * Sets pref.
      *
      * @param string $pref 配送先:都道府県名または都道府県id
      *
@@ -261,7 +272,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets postalCode
+     * Gets postalCode.
      *
      * @return string
      */
@@ -271,7 +282,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets postalCode
+     * Sets postalCode.
      *
      * @param string $postalCode 配送先:郵便番号
      *
@@ -285,7 +296,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets city
+     * Gets city.
      *
      * @return string
      */
@@ -295,7 +306,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets city
+     * Sets city.
      *
      * @param string $city 配送先:市区町村
      *
@@ -309,7 +320,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets addressLine1
+     * Gets addressLine1.
      *
      * @return string
      */
@@ -319,7 +330,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets addressLine1
+     * Sets addressLine1.
      *
      * @param string $addressLine1 配送先:番地
      *
@@ -333,7 +344,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets addressLine2
+     * Gets addressLine2.
      *
      * @return string
      */
@@ -343,7 +354,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets addressLine2
+     * Sets addressLine2.
      *
      * @param string $addressLine2 配送先:建物名
      *
@@ -357,7 +368,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets organization
+     * Gets organization.
      *
      * @return string
      */
@@ -367,7 +378,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets organization
+     * Sets organization.
      *
      * @param string $organization 配送先:組織名
      *
@@ -381,7 +392,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets tel
+     * Gets tel.
      *
      * @return string
      */
@@ -391,7 +402,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets tel
+     * Sets tel.
      *
      * @param string $tel 配送先:電話番号\"
      *
@@ -403,12 +414,13 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -418,7 +430,7 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -430,14 +442,12 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if ($offset === null) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -447,31 +457,10 @@ class ChangeDeliveryAddressRequest implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
 }
-
-

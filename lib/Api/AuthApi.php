@@ -49,11 +49,11 @@ class AuthApi
     }
 
     /**
-     * Operation getAccessToken
+     * Operation getAccessToken.
      *
      * getAccessToken
      *
-     * @param  string $authorization Authorization (required)
+     * @param string $authorization Authorization (required)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -66,11 +66,11 @@ class AuthApi
     }
 
     /**
-     * Operation getAccessTokenWithHttpInfo
+     * Operation getAccessTokenWithHttpInfo.
      *
      * getAccessToken
      *
-     * @param  string $authorization Authorization (required)
+     * @param string $authorization Authorization (required)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -83,6 +83,7 @@ class AuthApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
@@ -110,10 +111,12 @@ class AuthApi
             }
 
             $responseBody = $response->getBody();
+
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
+
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -122,9 +125,8 @@ class AuthApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -141,11 +143,11 @@ class AuthApi
     }
 
     /**
-     * Operation getAccessTokenAsync
+     * Operation getAccessTokenAsync.
      *
      * getAccessToken
      *
-     * @param  string $authorization Authorization (required)
+     * @param string $authorization Authorization (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -161,11 +163,11 @@ class AuthApi
     }
 
     /**
-     * Operation getAccessTokenAsyncWithHttpInfo
+     * Operation getAccessTokenAsyncWithHttpInfo.
      *
      * getAccessToken
      *
-     * @param  string $authorization Authorization (required)
+     * @param string $authorization Authorization (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -180,10 +182,12 @@ class AuthApi
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
+
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
+
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -192,7 +196,7 @@ class AuthApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
@@ -213,9 +217,9 @@ class AuthApi
     }
 
     /**
-     * Create request for operation 'getAccessToken'
+     * Create request for operation 'getAccessToken'.
      *
-     * @param  string $authorization Authorization (required)
+     * @param string $authorization Authorization (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -240,7 +244,6 @@ class AuthApi
         if ($authorization !== null) {
             $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
         }
-
 
         // body params
         $_tempBody = null;
@@ -267,26 +270,25 @@ class AuthApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
-
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -307,7 +309,7 @@ class AuthApi
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
      * @return array of http client options
@@ -315,8 +317,10 @@ class AuthApi
     protected function createHttpClientOption()
     {
         $options = [];
+
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

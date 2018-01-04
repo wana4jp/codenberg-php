@@ -4,30 +4,36 @@ namespace Kanekoelastic\PhpCodenberg;
 
 class ApiClient
 {
-    public static $PATCH = "PATCH";
-    public static $POST = "POST";
-    public static $GET = "GET";
-    public static $HEAD = "HEAD";
-    public static $OPTIONS = "OPTIONS";
-    public static $PUT = "PUT";
-    public static $DELETE = "DELETE";
+    public static $PATCH = 'PATCH';
+
+    public static $POST = 'POST';
+
+    public static $GET = 'GET';
+
+    public static $HEAD = 'HEAD';
+
+    public static $OPTIONS = 'OPTIONS';
+
+    public static $PUT = 'PUT';
+
+    public static $DELETE = 'DELETE';
 
     /**
-     * Configuration
+     * Configuration.
      *
      * @var Configuration
      */
     protected $config;
 
     /**
-     * Object Serializer
+     * Object Serializer.
      *
      * @var ObjectSerializer
      */
     protected $serializer;
 
     /**
-     * Constructor of the class
+     * Constructor of the class.
      *
      * @param Configuration $config config for this ApiClient
      */
@@ -42,7 +48,7 @@ class ApiClient
     }
 
     /**
-     * Get the config
+     * Get the config.
      *
      * @return Configuration
      */
@@ -52,7 +58,7 @@ class ApiClient
     }
 
     /**
-     * Get the serializer
+     * Get the serializer.
      *
      * @return ObjectSerializer
      */
@@ -62,9 +68,9 @@ class ApiClient
     }
 
     /**
-     * Get API key (with prefix if set)
+     * Get API key (with prefix if set).
      *
-     * @param  string $apiKeyIdentifier name of apikey
+     * @param string $apiKeyIdentifier name of apikey
      *
      * @return string API key with the prefix
      */
@@ -74,11 +80,11 @@ class ApiClient
         $apiKey = $this->config->getApiKey($apiKeyIdentifier);
 
         if (!isset($apiKey)) {
-            return null;
+            return;
         }
 
         if (isset($prefix)) {
-            $keyWithPrefix = $prefix." ".$apiKey;
+            $keyWithPrefix = $prefix . ' ' . $apiKey;
         } else {
             $keyWithPrefix = $apiKey;
         }
@@ -87,7 +93,7 @@ class ApiClient
     }
 
     /**
-     * Make the HTTP call (Sync)
+     * Make the HTTP call (Sync).
      *
      * @param string $resourcePath path to method endpoint
      * @param string $method       method to call
@@ -106,12 +112,12 @@ class ApiClient
 
         // construct the http header
         $headerParams = array_merge(
-            (array)$this->config->getDefaultHeaders(),
-            (array)$headerParams
+            (array) $this->config->getDefaultHeaders(),
+            (array) $headerParams
         );
 
         foreach ($headerParams as $key => $val) {
-            $headers[] = "$key: $val";
+            $headers[] = "${key}: ${val}";
         }
 
         // form data
@@ -157,7 +163,7 @@ class ApiClient
         }
 
         if ($this->config->getCurlProxyUser()) {
-            curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->config->getCurlProxyUser() . ':' .$this->config->getCurlProxyPassword());
+            curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->config->getCurlProxyUser() . ':' . $this->config->getCurlProxyPassword());
         }
 
         if (!empty($queryParams)) {
@@ -174,16 +180,16 @@ class ApiClient
         } elseif ($method === self::$HEAD) {
             curl_setopt($curl, CURLOPT_NOBODY, true);
         } elseif ($method === self::$OPTIONS) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "OPTIONS");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'OPTIONS');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
         } elseif ($method === self::$PATCH) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
         } elseif ($method === self::$PUT) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
         } elseif ($method === self::$DELETE) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
         } elseif ($method !== self::$GET) {
             throw new ApiException('Method ' . $method . ' is not recognized.');
@@ -195,7 +201,7 @@ class ApiClient
 
         // debugging for curl
         if ($this->config->getDebug()) {
-            error_log("[DEBUG] HTTP Request body  ~BEGIN~".PHP_EOL.print_r($postData, true).PHP_EOL."~END~".PHP_EOL, 3, $this->config->getDebugFile());
+            error_log('[DEBUG] HTTP Request body  ~BEGIN~' . PHP_EOL . print_r($postData, true) . PHP_EOL . '~END~' . PHP_EOL, 3, $this->config->getDebugFile());
 
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
             curl_setopt($curl, CURLOPT_STDERR, fopen($this->config->getDebugFile(), 'a'));
@@ -215,7 +221,7 @@ class ApiClient
 
         // debug HTTP response body
         if ($this->config->getDebug()) {
-            error_log("[DEBUG] HTTP Response body ~BEGIN~".PHP_EOL.print_r($http_body, true).PHP_EOL."~END~".PHP_EOL, 3, $this->config->getDebugFile());
+            error_log('[DEBUG] HTTP Response body ~BEGIN~' . PHP_EOL . print_r($http_body, true) . PHP_EOL . '~END~' . PHP_EOL, 3, $this->config->getDebugFile());
         }
 
         // Handle the response
@@ -224,10 +230,10 @@ class ApiClient
 
             // curl_exec can sometimes fail but still return a blank message from curl_error().
             if (!empty($curl_error_message)) {
-                $error_message = "API call to $url failed: $curl_error_message";
+                $error_message = "API call to ${url} failed: ${curl_error_message}";
             } else {
-                $error_message = "API call to $url failed, but for an unknown reason. " .
-                    "This could happen if you are disconnected from the network.";
+                $error_message = "API call to ${url} failed, but for an unknown reason. " .
+                    'This could happen if you are disconnected from the network.';
             }
 
             $exception = new ApiException($error_message, 0, null, null);
@@ -240,17 +246,19 @@ class ApiClient
             }
 
             $data = json_decode($http_body);
+
             if (json_last_error() > 0) { // if response is a string
                 $data = $http_body;
             }
         } else {
             $data = json_decode($http_body);
+
             if (json_last_error() > 0) { // if response is a string
                 $data = $http_body;
             }
 
             throw new ApiException(
-                "[".$response_info['http_code']."] Error connecting to the API ($url)",
+                '[' . $response_info['http_code'] . "] Error connecting to the API (${url})",
                 $response_info['http_code'],
                 $http_header,
                 $data
@@ -260,7 +268,7 @@ class ApiClient
     }
 
     /**
-     * Return the header 'Accept' based on an array of Accept provided
+     * Return the header 'Accept' based on an array of Accept provided.
      *
      * @param string[] $accept Array of header
      *
@@ -269,16 +277,15 @@ class ApiClient
     public function selectHeaderAccept($accept)
     {
         if (count($accept) === 0 or (count($accept) === 1 and $accept[0] === '')) {
-            return null;
-        } elseif (preg_grep("/application\/json/i", $accept)) {
+            return;
+        } elseif (preg_grep('/application\\/json/i', $accept)) {
             return 'application/json';
-        } else {
-            return implode(',', $accept);
         }
+        return implode(',', $accept);
     }
 
     /**
-     * Return the content type based on an array of content-type provided
+     * Return the content type based on an array of content-type provided.
      *
      * @param string[] $content_type Array fo content-type
      *
@@ -288,20 +295,19 @@ class ApiClient
     {
         if (count($content_type) === 0 or (count($content_type) === 1 and $content_type[0] === '')) {
             return 'application/json';
-        } elseif (preg_grep("/application\/json/i", $content_type)) {
+        } elseif (preg_grep('/application\\/json/i', $content_type)) {
             return 'application/json';
-        } else {
-            return implode(',', $content_type);
         }
+        return implode(',', $content_type);
     }
 
-   /**
-    * Return an array of HTTP response headers
-    *
-    * @param string $raw_headers A string of raw HTTP response headers
-    *
-    * @return string[] Array of HTTP response heaers
-    */
+    /**
+     * Return an array of HTTP response headers.
+     *
+     * @param string $raw_headers A string of raw HTTP response headers
+     *
+     * @return string[] Array of HTTP response heaers
+     */
     protected function httpParseHeaders($raw_headers)
     {
         // ref/credit: http://php.net/manual/en/function.http-parse-headers.php#112986
@@ -323,7 +329,7 @@ class ApiClient
                 $key = $h[0];
             } else {
                 if (substr($h[0], 0, 1) === "\t") {
-                    $headers[$key] .= "\r\n\t".trim($h[0]);
+                    $headers[$key] .= "\r\n\t" . trim($h[0]);
                 } elseif (!$key) {
                     $headers[0] = trim($h[0]);
                 }

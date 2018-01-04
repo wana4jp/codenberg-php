@@ -2,42 +2,109 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use \ArrayAccess;
-use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
+use ArrayAccess;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 class TemplateThumb implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'Template_thumb';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'small' => 'string',
-        'large' => 'string'
+        'large' => 'string',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'small' => null,
-        'large' => null
+        'large' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'small' => 'small',
+        'large' => 'large',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'small' => 'setSmall',
+        'large' => 'setLarge',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'small' => 'getSmall',
+        'large' => 'getLarge',
+    ];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['small'] = isset($data['small']) ? $data['small'] : null;
+        $this->container['large'] = isset($data['large']) ? $data['large'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -47,7 +114,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -58,38 +125,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'small' => 'small',
-        'large' => 'large'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'small' => 'setSmall',
-        'large' => 'setLarge'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'small' => 'getSmall',
-        'large' => 'getLarge'
-    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -99,7 +135,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -109,7 +145,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -128,29 +164,6 @@ class TemplateThumb implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['small'] = isset($data['small']) ? $data['small'] : null;
-        $this->container['large'] = isset($data['large']) ? $data['large'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -165,19 +178,17 @@ class TemplateThumb implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-
         return true;
     }
 
-
     /**
-     * Gets small
+     * Gets small.
      *
      * @return string
      */
@@ -187,7 +198,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets small
+     * Sets small.
      *
      * @param string $small small
      *
@@ -201,7 +212,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets large
+     * Gets large.
      *
      * @return string
      */
@@ -211,7 +222,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets large
+     * Sets large.
      *
      * @param string $large large
      *
@@ -223,12 +234,13 @@ class TemplateThumb implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -238,7 +250,7 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -250,14 +262,12 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if ($offset === null) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -267,31 +277,10 @@ class TemplateThumb implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
 }
-
-

@@ -2,8 +2,6 @@
 
 namespace Kanekoelastic\PhpCodenberg;
 
-use \Exception;
-
 class HeaderSelector
 {
     /**
@@ -16,6 +14,7 @@ class HeaderSelector
         $headers = [];
 
         $accept = $this->selectAcceptHeader($accept);
+
         if ($accept !== null) {
             $headers['Accept'] = $accept;
         }
@@ -37,7 +36,7 @@ class HeaderSelector
     }
 
     /**
-     * Return the header 'Accept' based on an array of Accept provided
+     * Return the header 'Accept' based on an array of Accept provided.
      *
      * @param string[] $accept Array of header
      *
@@ -46,16 +45,15 @@ class HeaderSelector
     private function selectAcceptHeader($accept)
     {
         if (count($accept) === 0 || (count($accept) === 1 && $accept[0] === '')) {
-            return null;
-        } elseif (preg_grep("/application\/json/i", $accept)) {
+            return;
+        } elseif (preg_grep('/application\\/json/i', $accept)) {
             return 'application/json';
-        } else {
-            return implode(',', $accept);
         }
+        return implode(',', $accept);
     }
 
     /**
-     * Return the content type based on an array of content-type provided
+     * Return the content type based on an array of content-type provided.
      *
      * @param string[] $contentType Array fo content-type
      *
@@ -65,10 +63,9 @@ class HeaderSelector
     {
         if (count($contentType) === 0 || (count($contentType) === 1 && $contentType[0] === '')) {
             return 'application/json';
-        } elseif (preg_grep("/application\/json/i", $contentType)) {
+        } elseif (preg_grep('/application\\/json/i', $contentType)) {
             return 'application/json';
-        } else {
-            return implode(',', $contentType);
         }
+        return implode(',', $contentType);
     }
 }

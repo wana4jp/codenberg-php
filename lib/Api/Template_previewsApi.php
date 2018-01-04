@@ -49,11 +49,11 @@ class Template_previewsApi
     }
 
     /**
-     * Operation createTemplatePreview
+     * Operation createTemplatePreview.
      *
      * Request creating template preview
      *
-     * @param  \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
+     * @param \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -66,11 +66,11 @@ class Template_previewsApi
     }
 
     /**
-     * Operation createTemplatePreviewWithHttpInfo
+     * Operation createTemplatePreviewWithHttpInfo.
      *
      * Request creating template preview
      *
-     * @param  \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
+     * @param \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -83,6 +83,7 @@ class Template_previewsApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
@@ -110,10 +111,12 @@ class Template_previewsApi
             }
 
             $responseBody = $response->getBody();
+
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
+
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -122,9 +125,8 @@ class Template_previewsApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 202:
@@ -141,11 +143,11 @@ class Template_previewsApi
     }
 
     /**
-     * Operation createTemplatePreviewAsync
+     * Operation createTemplatePreviewAsync.
      *
      * Request creating template preview
      *
-     * @param  \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
+     * @param \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -161,11 +163,11 @@ class Template_previewsApi
     }
 
     /**
-     * Operation createTemplatePreviewAsyncWithHttpInfo
+     * Operation createTemplatePreviewAsyncWithHttpInfo.
      *
      * Request creating template preview
      *
-     * @param  \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
+     * @param \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -180,10 +182,12 @@ class Template_previewsApi
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
+
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
+
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -192,7 +196,7 @@ class Template_previewsApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
@@ -213,9 +217,177 @@ class Template_previewsApi
     }
 
     /**
-     * Create request for operation 'createTemplatePreview'
+     * Operation getTemplatePreview.
      *
-     * @param  \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
+     * Get preview
+     *
+     * @param int $templatePreviewId プレビューのIDを指定 (required)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Kanekoelastic\PhpCodenberg\Model\TemplatePreview
+     */
+    public function getTemplatePreview($templatePreviewId)
+    {
+        list($response) = $this->getTemplatePreviewWithHttpInfo($templatePreviewId);
+        return $response;
+    }
+
+    /**
+     * Operation getTemplatePreviewWithHttpInfo.
+     *
+     * Get preview
+     *
+     * @param int $templatePreviewId プレビューのIDを指定 (required)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Kanekoelastic\PhpCodenberg\Model\TemplatePreview, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTemplatePreviewWithHttpInfo($templatePreviewId)
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplatePreview';
+        $request = $this->getTemplatePreviewRequest($templatePreviewId);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders(),
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Kanekoelastic\PhpCodenberg\Model\TemplatePreview',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTemplatePreviewAsync.
+     *
+     * Get preview
+     *
+     * @param int $templatePreviewId プレビューのIDを指定 (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTemplatePreviewAsync($templatePreviewId)
+    {
+        return $this->getTemplatePreviewAsyncWithHttpInfo($templatePreviewId)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTemplatePreviewAsyncWithHttpInfo.
+     *
+     * Get preview
+     *
+     * @param int $templatePreviewId プレビューのIDを指定 (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTemplatePreviewAsyncWithHttpInfo($templatePreviewId)
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplatePreview';
+        $request = $this->getTemplatePreviewRequest($templatePreviewId);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders(),
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createTemplatePreview'.
+     *
+     * @param \Kanekoelastic\PhpCodenberg\Model\PreviewRequest $body プレビューの生成条件を指定します。 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -236,10 +408,9 @@ class Template_previewsApi
         $httpBody = '';
         $multipart = false;
 
-
-
         // body params
         $_tempBody = null;
+
         if (isset($body)) {
             $_tempBody = $body;
         }
@@ -266,18 +437,17 @@ class Template_previewsApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -290,6 +460,7 @@ class Template_previewsApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -310,173 +481,9 @@ class Template_previewsApi
     }
 
     /**
-     * Operation getTemplatePreview
+     * Create request for operation 'getTemplatePreview'.
      *
-     * Get preview
-     *
-     * @param  int $templatePreviewId プレビューのIDを指定 (required)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Kanekoelastic\PhpCodenberg\Model\TemplatePreview
-     */
-    public function getTemplatePreview($templatePreviewId)
-    {
-        list($response) = $this->getTemplatePreviewWithHttpInfo($templatePreviewId);
-        return $response;
-    }
-
-    /**
-     * Operation getTemplatePreviewWithHttpInfo
-     *
-     * Get preview
-     *
-     * @param  int $templatePreviewId プレビューのIDを指定 (required)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Kanekoelastic\PhpCodenberg\Model\TemplatePreview, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getTemplatePreviewWithHttpInfo($templatePreviewId)
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplatePreview';
-        $request = $this->getTemplatePreviewRequest($templatePreviewId);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if ($returnType !== 'string') {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Kanekoelastic\PhpCodenberg\Model\TemplatePreview',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getTemplatePreviewAsync
-     *
-     * Get preview
-     *
-     * @param  int $templatePreviewId プレビューのIDを指定 (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTemplatePreviewAsync($templatePreviewId)
-    {
-        return $this->getTemplatePreviewAsyncWithHttpInfo($templatePreviewId)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getTemplatePreviewAsyncWithHttpInfo
-     *
-     * Get preview
-     *
-     * @param  int $templatePreviewId プレビューのIDを指定 (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTemplatePreviewAsyncWithHttpInfo($templatePreviewId)
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplatePreview';
-        $request = $this->getTemplatePreviewRequest($templatePreviewId);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getTemplatePreview'
-     *
-     * @param  int $templatePreviewId プレビューのIDを指定 (required)
+     * @param int $templatePreviewId プレビューのIDを指定 (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -496,7 +503,6 @@ class Template_previewsApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
-
 
         // path params
         if ($templatePreviewId !== null) {
@@ -532,18 +538,17 @@ class Template_previewsApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -556,6 +561,7 @@ class Template_previewsApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -576,7 +582,7 @@ class Template_previewsApi
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
      * @return array of http client options
@@ -584,8 +590,10 @@ class Template_previewsApi
     protected function createHttpClientOption()
     {
         $options = [];
+
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

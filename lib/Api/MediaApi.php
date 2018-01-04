@@ -49,15 +49,15 @@ class MediaApi
     }
 
     /**
-     * Operation getMedia
+     * Operation getMedia.
      *
      * Get media list
      *
-     * @param  string $q 指定して文字でファイル名を対象に検索します。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
+     * @param string $q         指定して文字でファイル名を対象に検索します。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -70,15 +70,15 @@ class MediaApi
     }
 
     /**
-     * Operation getMediaWithHttpInfo
+     * Operation getMediaWithHttpInfo.
      *
      * Get media list
      *
-     * @param  string $q 指定して文字でファイル名を対象に検索します。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
+     * @param string $q         指定して文字でファイル名を対象に検索します。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -91,6 +91,7 @@ class MediaApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
@@ -118,10 +119,12 @@ class MediaApi
             }
 
             $responseBody = $response->getBody();
+
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
+
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -130,9 +133,8 @@ class MediaApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -149,15 +151,15 @@ class MediaApi
     }
 
     /**
-     * Operation getMediaAsync
+     * Operation getMediaAsync.
      *
      * Get media list
      *
-     * @param  string $q 指定して文字でファイル名を対象に検索します。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
+     * @param string $q         指定して文字でファイル名を対象に検索します。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -173,15 +175,15 @@ class MediaApi
     }
 
     /**
-     * Operation getMediaAsyncWithHttpInfo
+     * Operation getMediaAsyncWithHttpInfo.
      *
      * Get media list
      *
-     * @param  string $q 指定して文字でファイル名を対象に検索します。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
+     * @param string $q         指定して文字でファイル名を対象に検索します。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -196,10 +198,12 @@ class MediaApi
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
+
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
+
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -208,7 +212,7 @@ class MediaApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
@@ -229,20 +233,187 @@ class MediaApi
     }
 
     /**
-     * Create request for operation 'getMedia'
+     * Operation getMediaById.
      *
-     * @param  string $q 指定して文字でファイル名を対象に検索します。 (optional)
-     * @param  string $sort 並び順の基準とする項目を指定します。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。 (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定します。 (optional, default to 1)
+     * Get media information by ID
+     *
+     * @param int $mediaId 取得するメディアIDを指定します (required)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Kanekoelastic\PhpCodenberg\Model\Medium
+     */
+    public function getMediaById($mediaId)
+    {
+        list($response) = $this->getMediaByIdWithHttpInfo($mediaId);
+        return $response;
+    }
+
+    /**
+     * Operation getMediaByIdWithHttpInfo.
+     *
+     * Get media information by ID
+     *
+     * @param int $mediaId 取得するメディアIDを指定します (required)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Kanekoelastic\PhpCodenberg\Model\Medium, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMediaByIdWithHttpInfo($mediaId)
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\Medium';
+        $request = $this->getMediaByIdRequest($mediaId);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders(),
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Kanekoelastic\PhpCodenberg\Model\Medium',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMediaByIdAsync.
+     *
+     * Get media information by ID
+     *
+     * @param int $mediaId 取得するメディアIDを指定します (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMediaByIdAsync($mediaId)
+    {
+        return $this->getMediaByIdAsyncWithHttpInfo($mediaId)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMediaByIdAsyncWithHttpInfo.
+     *
+     * Get media information by ID
+     *
+     * @param int $mediaId 取得するメディアIDを指定します (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMediaByIdAsyncWithHttpInfo($mediaId)
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\Medium';
+        $request = $this->getMediaByIdRequest($mediaId);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders(),
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMedia'.
+     *
+     * @param string $q         指定して文字でファイル名を対象に検索します。 (optional)
+     * @param string $sort      並び順の基準とする項目を指定します。 (optional, default to id)
+     * @param string $direction 項目の並び順を指定します。 (optional, default to desc)
+     * @param int    $perPage   1ページあたりの取得項目数。最大50件 (optional, default to 10)
+     * @param int    $page      ページ番号を指定します。 (optional, default to 1)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function getMediaRequest($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1')
     {
-
         $resourcePath = '/media';
         $formParams = [];
         $queryParams = [];
@@ -271,7 +442,6 @@ class MediaApi
             $queryParams['page'] = ObjectSerializer::toQueryValue($page);
         }
 
-
         // body params
         $_tempBody = null;
 
@@ -297,18 +467,17 @@ class MediaApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -321,6 +490,7 @@ class MediaApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -341,173 +511,9 @@ class MediaApi
     }
 
     /**
-     * Operation getMediaById
+     * Create request for operation 'getMediaById'.
      *
-     * Get media information by ID
-     *
-     * @param  int $mediaId 取得するメディアIDを指定します (required)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Kanekoelastic\PhpCodenberg\Model\Medium
-     */
-    public function getMediaById($mediaId)
-    {
-        list($response) = $this->getMediaByIdWithHttpInfo($mediaId);
-        return $response;
-    }
-
-    /**
-     * Operation getMediaByIdWithHttpInfo
-     *
-     * Get media information by ID
-     *
-     * @param  int $mediaId 取得するメディアIDを指定します (required)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Kanekoelastic\PhpCodenberg\Model\Medium, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getMediaByIdWithHttpInfo($mediaId)
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\Medium';
-        $request = $this->getMediaByIdRequest($mediaId);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if ($returnType !== 'string') {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Kanekoelastic\PhpCodenberg\Model\Medium',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getMediaByIdAsync
-     *
-     * Get media information by ID
-     *
-     * @param  int $mediaId 取得するメディアIDを指定します (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getMediaByIdAsync($mediaId)
-    {
-        return $this->getMediaByIdAsyncWithHttpInfo($mediaId)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getMediaByIdAsyncWithHttpInfo
-     *
-     * Get media information by ID
-     *
-     * @param  int $mediaId 取得するメディアIDを指定します (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getMediaByIdAsyncWithHttpInfo($mediaId)
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\Medium';
-        $request = $this->getMediaByIdRequest($mediaId);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getMediaById'
-     *
-     * @param  int $mediaId 取得するメディアIDを指定します (required)
+     * @param int $mediaId 取得するメディアIDを指定します (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -527,7 +533,6 @@ class MediaApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
-
 
         // path params
         if ($mediaId !== null) {
@@ -563,18 +568,17 @@ class MediaApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -587,6 +591,7 @@ class MediaApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -607,7 +612,7 @@ class MediaApi
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
      * @return array of http client options
@@ -615,8 +620,10 @@ class MediaApi
     protected function createHttpClientOption()
     {
         $options = [];
+
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

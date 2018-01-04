@@ -2,46 +2,121 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use \ArrayAccess;
-use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
+use ArrayAccess;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 class OrderList implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'OrderList';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'count' => 'int',
         'page' => 'int',
         'perPage' => 'int',
-        'results' => '\Kanekoelastic\PhpCodenberg\Model\Order[]'
+        'results' => '\Kanekoelastic\PhpCodenberg\Model\Order[]',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'count' => 'int64',
         'page' => 'int64',
         'perPage' => 'int64',
-        'results' => null
+        'results' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'count' => 'count',
+        'page' => 'page',
+        'perPage' => 'per_page',
+        'results' => 'results',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'count' => 'setCount',
+        'page' => 'setPage',
+        'perPage' => 'setPerPage',
+        'results' => 'setResults',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'count' => 'getCount',
+        'page' => 'getPage',
+        'perPage' => 'getPerPage',
+        'results' => 'getResults',
+    ];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['count'] = isset($data['count']) ? $data['count'] : null;
+        $this->container['page'] = isset($data['page']) ? $data['page'] : null;
+        $this->container['perPage'] = isset($data['perPage']) ? $data['perPage'] : null;
+        $this->container['results'] = isset($data['results']) ? $data['results'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -51,7 +126,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -62,44 +137,7 @@ class OrderList implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'count' => 'count',
-        'page' => 'page',
-        'perPage' => 'per_page',
-        'results' => 'results'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'count' => 'setCount',
-        'page' => 'setPage',
-        'perPage' => 'setPerPage',
-        'results' => 'setResults'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'count' => 'getCount',
-        'page' => 'getPage',
-        'perPage' => 'getPerPage',
-        'results' => 'getResults'
-    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -109,7 +147,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -119,7 +157,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -138,31 +176,6 @@ class OrderList implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['count'] = isset($data['count']) ? $data['count'] : null;
-        $this->container['page'] = isset($data['page']) ? $data['page'] : null;
-        $this->container['perPage'] = isset($data['perPage']) ? $data['perPage'] : null;
-        $this->container['results'] = isset($data['results']) ? $data['results'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -177,19 +190,17 @@ class OrderList implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-
         return true;
     }
 
-
     /**
-     * Gets count
+     * Gets count.
      *
      * @return int
      */
@@ -199,7 +210,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets count
+     * Sets count.
      *
      * @param int $count count
      *
@@ -213,7 +224,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets page
+     * Gets page.
      *
      * @return int
      */
@@ -223,7 +234,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets page
+     * Sets page.
      *
      * @param int $page page
      *
@@ -237,7 +248,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets perPage
+     * Gets perPage.
      *
      * @return int
      */
@@ -247,7 +258,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets perPage
+     * Sets perPage.
      *
      * @param int $perPage perPage
      *
@@ -261,7 +272,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets results
+     * Gets results.
      *
      * @return \Kanekoelastic\PhpCodenberg\Model\Order[]
      */
@@ -271,7 +282,7 @@ class OrderList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets results
+     * Sets results.
      *
      * @param \Kanekoelastic\PhpCodenberg\Model\Order[] $results results
      *
@@ -283,12 +294,13 @@ class OrderList implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -298,7 +310,7 @@ class OrderList implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -310,14 +322,12 @@ class OrderList implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if ($offset === null) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -327,31 +337,10 @@ class OrderList implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
 }
-
-
