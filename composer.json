@@ -1,6 +1,6 @@
 {
     "name": "kanekoelastic/codenberg-php",
-    "version": "1.0.0",
+    "type": "library",
     "description": "PHP Wrapper for Codenberg API",
     "keywords": [
         "php",
@@ -26,7 +26,11 @@
         "phpunit/phpunit": "5.7.*"
     },
     "autoload": {
-        "psr-4": { "Kanekoelastic\\PhpCodenberg\\" : "lib/" }
+        "psr-4": {
+            "Kanekoelastic\\PhpCodenberg\\" : "lib/",
+            "Kanekoelastic\\PhpCodenberg\\Api\\" : "lib/Api/",
+            "Kanekoelastic\\PhpCodenberg\\Model\\" : "lib/Model/"
+        }
     },
     "autoload-dev": {
         "psr-4": { "Kanekoelastic\\PhpCodenberg\\" : "test/" }
