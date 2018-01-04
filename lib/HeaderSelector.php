@@ -1,6 +1,6 @@
 <?php
 
-namespace {{invokerPackage}};
+namespace Kanekoelastic\PhpCodenberg;
 
 use \Exception;
 

@@ -5,14 +5,6 @@ namespace Kanekoelastic\PhpCodenberg\Model;
 use \ArrayAccess;
 use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
-/**
- * CreateOrderRequest Class Doc Comment
- *
- * @category Class
- * @package  Kanekoelastic\PhpCodenberg
- * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
- */
 class CreateOrderRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
