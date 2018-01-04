@@ -2,48 +2,127 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use \ArrayAccess;
-use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
+use ArrayAccess;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 class Medium implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'Medium';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'id' => 'int',
         'name' => 'string',
         'file' => 'string',
         'thumb' => '\Kanekoelastic\PhpCodenberg\Model\MediumThumb[]',
-        'createdAt' => '\DateTime'
+        'createdAt' => '\DateTime',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'id' => 'int64',
         'name' => null,
         'file' => null,
         'thumb' => null,
-        'createdAt' => 'date-time'
+        'createdAt' => 'date-time',
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'id' => 'id',
+        'name' => 'name',
+        'file' => 'file',
+        'thumb' => 'thumb',
+        'createdAt' => 'created_at',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'id' => 'setId',
+        'name' => 'setName',
+        'file' => 'setFile',
+        'thumb' => 'setThumb',
+        'createdAt' => 'setCreatedAt',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'id' => 'getId',
+        'name' => 'getName',
+        'file' => 'getFile',
+        'thumb' => 'getThumb',
+        'createdAt' => 'getCreatedAt',
+    ];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['file'] = isset($data['file']) ? $data['file'] : null;
+        $this->container['thumb'] = isset($data['thumb']) ? $data['thumb'] : null;
+        $this->container['createdAt'] = isset($data['createdAt']) ? $data['createdAt'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -53,7 +132,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -64,47 +143,7 @@ class Medium implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'id' => 'id',
-        'name' => 'name',
-        'file' => 'file',
-        'thumb' => 'thumb',
-        'createdAt' => 'created_at'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'id' => 'setId',
-        'name' => 'setName',
-        'file' => 'setFile',
-        'thumb' => 'setThumb',
-        'createdAt' => 'setCreatedAt'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'id' => 'getId',
-        'name' => 'getName',
-        'file' => 'getFile',
-        'thumb' => 'getThumb',
-        'createdAt' => 'getCreatedAt'
-    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -114,7 +153,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -124,7 +163,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -143,32 +182,6 @@ class Medium implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['file'] = isset($data['file']) ? $data['file'] : null;
-        $this->container['thumb'] = isset($data['thumb']) ? $data['thumb'] : null;
-        $this->container['createdAt'] = isset($data['createdAt']) ? $data['createdAt'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -183,19 +196,17 @@ class Medium implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-
         return true;
     }
 
-
     /**
-     * Gets id
+     * Gets id.
      *
      * @return int
      */
@@ -205,7 +216,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets id
+     * Sets id.
      *
      * @param int $id id
      *
@@ -219,7 +230,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets name
+     * Gets name.
      *
      * @return string
      */
@@ -229,7 +240,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets name
+     * Sets name.
      *
      * @param string $name name
      *
@@ -243,7 +254,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets file
+     * Gets file.
      *
      * @return string
      */
@@ -253,7 +264,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets file
+     * Sets file.
      *
      * @param string $file file
      *
@@ -267,7 +278,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets thumb
+     * Gets thumb.
      *
      * @return \Kanekoelastic\PhpCodenberg\Model\MediumThumb[]
      */
@@ -277,7 +288,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets thumb
+     * Sets thumb.
      *
      * @param \Kanekoelastic\PhpCodenberg\Model\MediumThumb[] $thumb thumb
      *
@@ -291,7 +302,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets createdAt
+     * Gets createdAt.
      *
      * @return \DateTime
      */
@@ -301,7 +312,7 @@ class Medium implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets createdAt
+     * Sets createdAt.
      *
      * @param \DateTime $createdAt createdAt
      *
@@ -313,12 +324,13 @@ class Medium implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -328,7 +340,7 @@ class Medium implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -340,14 +352,12 @@ class Medium implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if ($offset === null) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -357,31 +367,10 @@ class Medium implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
 }
-
-

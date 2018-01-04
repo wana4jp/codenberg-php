@@ -4,66 +4,66 @@ namespace Kanekoelastic\PhpCodenberg;
 
 class Configuration
 {
-    private static $defaultConfiguration;
-
     /**
-     * API key
+     * API key.
      *
      * @var string
      */
-    protected $apiKey= '';
+    protected $apiKey = '';
 
     /**
-     * Secret key
+     * Secret key.
      *
      * @var string
      */
     protected $secretKey = '';
 
     /**
-     * Access token for OAuth
+     * Access token for OAuth.
      *
      * @var string
      */
     protected $accessToken = '';
 
     /**
-     * The host
+     * The host.
      *
      * @var string
      */
     protected $host = 'https://api.codenberg.io/v1';
 
     /**
-     * User agent of the HTTP request
+     * User agent of the HTTP request.
      *
      * @var string
      */
     protected $userAgent = 'Codenberg-Php/1.0.0/php';
 
     /**
-     * Debug switch (default set to false)
+     * Debug switch (default set to false).
      *
      * @var bool
      */
     protected $debug = false;
 
     /**
-     * Debug file location (log to STDOUT by default)
+     * Debug file location (log to STDOUT by default).
      *
      * @var string
      */
     protected $debugFile = 'php://output';
 
     /**
-     * Debug file location (log to STDOUT by default)
+     * Debug file location (log to STDOUT by default).
      *
      * @var string
      */
     protected $tempFolderPath;
 
+    private static $defaultConfiguration;
+
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -71,7 +71,7 @@ class Configuration
     }
 
     /**
-     * Sets the API key
+     * Sets the API key.
      *
      * @param string $apiKey
      *
@@ -84,7 +84,7 @@ class Configuration
     }
 
     /**
-     * Gets the API key
+     * Gets the API key.
      *
      * @return string API Key
      */
@@ -94,7 +94,7 @@ class Configuration
     }
 
     /**
-     * Sets the Secret key
+     * Sets the Secret key.
      *
      * @param string $secretKey
      *
@@ -107,7 +107,7 @@ class Configuration
     }
 
     /**
-     * Gets the Secret key
+     * Gets the Secret key.
      *
      * @return string Secret key
      */
@@ -117,7 +117,7 @@ class Configuration
     }
 
     /**
-     * Sets the access token for OAuth
+     * Sets the access token for OAuth.
      *
      * @param string $accessToken Token for OAuth
      *
@@ -130,7 +130,7 @@ class Configuration
     }
 
     /**
-     * Gets the access token for OAuth
+     * Gets the access token for OAuth.
      *
      * @return string Access token for OAuth
      */
@@ -140,7 +140,7 @@ class Configuration
     }
 
     /**
-     * Sets the username for HTTP basic authentication
+     * Sets the username for HTTP basic authentication.
      *
      * @param string $username Username for HTTP basic authentication
      *
@@ -153,7 +153,7 @@ class Configuration
     }
 
     /**
-     * Gets the username for HTTP basic authentication
+     * Gets the username for HTTP basic authentication.
      *
      * @return string Username for HTTP basic authentication
      */
@@ -163,7 +163,7 @@ class Configuration
     }
 
     /**
-     * Sets the password for HTTP basic authentication
+     * Sets the password for HTTP basic authentication.
      *
      * @param string $password Password for HTTP basic authentication
      *
@@ -176,7 +176,7 @@ class Configuration
     }
 
     /**
-     * Gets the password for HTTP basic authentication
+     * Gets the password for HTTP basic authentication.
      *
      * @return string Password for HTTP basic authentication
      */
@@ -186,7 +186,7 @@ class Configuration
     }
 
     /**
-     * Sets the host
+     * Sets the host.
      *
      * @param string $host Host
      *
@@ -199,7 +199,7 @@ class Configuration
     }
 
     /**
-     * Gets the host
+     * Gets the host.
      *
      * @return string Host
      */
@@ -209,7 +209,7 @@ class Configuration
     }
 
     /**
-     * Sets the user agent of the api client
+     * Sets the user agent of the api client.
      *
      * @param string $userAgent the user agent of the api client
      *
@@ -227,7 +227,7 @@ class Configuration
     }
 
     /**
-     * Gets the user agent of the api client
+     * Gets the user agent of the api client.
      *
      * @return string user agent
      */
@@ -237,7 +237,7 @@ class Configuration
     }
 
     /**
-     * Sets debug flag
+     * Sets debug flag.
      *
      * @param bool $debug Debug flag
      *
@@ -250,7 +250,7 @@ class Configuration
     }
 
     /**
-     * Gets the debug flag
+     * Gets the debug flag.
      *
      * @return bool
      */
@@ -260,7 +260,7 @@ class Configuration
     }
 
     /**
-     * Sets the debug file
+     * Sets the debug file.
      *
      * @param string $debugFile Debug file
      *
@@ -273,7 +273,7 @@ class Configuration
     }
 
     /**
-     * Gets the debug file
+     * Gets the debug file.
      *
      * @return string
      */
@@ -283,7 +283,7 @@ class Configuration
     }
 
     /**
-     * Sets the temp folder path
+     * Sets the temp folder path.
      *
      * @param string $tempFolderPath Temp folder path
      *
@@ -296,7 +296,7 @@ class Configuration
     }
 
     /**
-     * Gets the temp folder path
+     * Gets the temp folder path.
      *
      * @return string Temp folder path
      */
@@ -306,39 +306,37 @@ class Configuration
     }
 
     /**
-     * Gets the default configuration instance
+     * Gets the default configuration instance.
      *
      * @return Configuration
      */
     public static function getDefaultConfiguration()
     {
         if (self::$defaultConfiguration === null) {
-            self::$defaultConfiguration = new Configuration();
+            self::$defaultConfiguration = new self();
         }
 
         return self::$defaultConfiguration;
     }
 
     /**
-     * Sets the detault configuration instance
+     * Sets the detault configuration instance.
      *
      * @param Configuration $config An instance of the Configuration Object
-     *
-     * @return void
      */
-    public static function setDefaultConfiguration(Configuration $config)
+    public static function setDefaultConfiguration(self $config)
     {
         self::$defaultConfiguration = $config;
     }
 
     /**
-     * Gets the essential information for debugging
+     * Gets the essential information for debugging.
      *
      * @return string The report for debugging
      */
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (Kanekoelastic\PhpCodenberg) Debug Report:' . PHP_EOL;
+        $report = 'PHP SDK (Kanekoelastic\PhpCodenberg) Debug Report:' . PHP_EOL;
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    SDK Package Version: 1.0.0' . PHP_EOL;

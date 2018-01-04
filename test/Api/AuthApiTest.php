@@ -2,10 +2,10 @@
 
 namespace Kanekoelastic\PhpCodenberg;
 
-class StatusAndMessageTest extends \PHPUnit\Framework\TestCase
+class AuthApiTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Setup before running any test case.
+     * Setup before running any test cases.
      */
     public static function setUpBeforeClass()
     {
@@ -33,23 +33,11 @@ class StatusAndMessageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test "StatusAndMessage".
+     * Test case for getAccessToken.
+     *
+     * getAccessToken.
      */
-    public function testStatusAndMessage()
-    {
-    }
-
-    /**
-     * Test attribute "result".
-     */
-    public function testPropertyResult()
-    {
-    }
-
-    /**
-     * Test attribute "message".
-     */
-    public function testPropertyMessage()
+    public function testGetAccessToken()
     {
     }
 }

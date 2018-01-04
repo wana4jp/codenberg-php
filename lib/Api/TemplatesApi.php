@@ -49,13 +49,13 @@ class TemplatesApi
     }
 
     /**
-     * Operation getTemplateById
+     * Operation getTemplateById.
      *
      * Find template by ID
      *
-     * @param  int $templateId テンプレートのIDを指定します。 (required)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     * @param int  $templateId            テンプレートのIDを指定します。 (required)
+     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
+     * @param bool $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -68,13 +68,13 @@ class TemplatesApi
     }
 
     /**
-     * Operation getTemplateByIdWithHttpInfo
+     * Operation getTemplateByIdWithHttpInfo.
      *
      * Find template by ID
      *
-     * @param  int $templateId テンプレートのIDを指定します。 (required)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     * @param int  $templateId            テンプレートのIDを指定します。 (required)
+     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
+     * @param bool $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
      *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -87,6 +87,7 @@ class TemplatesApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
@@ -114,10 +115,12 @@ class TemplatesApi
             }
 
             $responseBody = $response->getBody();
+
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
+
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -126,9 +129,8 @@ class TemplatesApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -145,13 +147,13 @@ class TemplatesApi
     }
 
     /**
-     * Operation getTemplateByIdAsync
+     * Operation getTemplateByIdAsync.
      *
      * Find template by ID
      *
-     * @param  int $templateId テンプレートのIDを指定します。 (required)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     * @param int  $templateId            テンプレートのIDを指定します。 (required)
+     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
+     * @param bool $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -167,13 +169,13 @@ class TemplatesApi
     }
 
     /**
-     * Operation getTemplateByIdAsyncWithHttpInfo
+     * Operation getTemplateByIdAsyncWithHttpInfo.
      *
      * Find template by ID
      *
-     * @param  int $templateId テンプレートのIDを指定します。 (required)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     * @param int  $templateId            テンプレートのIDを指定します。 (required)
+     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
+     * @param bool $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -188,10 +190,12 @@ class TemplatesApi
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
+
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
+
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -200,7 +204,7 @@ class TemplatesApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
@@ -221,11 +225,207 @@ class TemplatesApi
     }
 
     /**
-     * Create request for operation 'getTemplateById'
+     * Operation getTemplates.
      *
-     * @param  int $templateId テンプレートのIDを指定します。 (required)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     * Get template list by query.
+     *
+     * @param string $q                     検索文字列を指定します。template名、キーワードが対象となります。 (optional)
+     * @param string $sort                  id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
+     * @param string $direction             項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
+     * @param int    $perPage               1ページあたりの取得項目数。最大:50件 (optional, default to 10)
+     * @param int    $page                  ページ番号を指定。 (optional, default to 1)
+     * @param bool   $includingPrivate      非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
+     * @param bool   $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
+     * @param bool   $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Kanekoelastic\PhpCodenberg\Model\TemplateList
+     */
+    public function getTemplates($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
+    {
+        list($response) = $this->getTemplatesWithHttpInfo($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats);
+        return $response;
+    }
+
+    /**
+     * Operation getTemplatesWithHttpInfo.
+     *
+     * Get template list by query.
+     *
+     * @param string $q                     検索文字列を指定します。template名、キーワードが対象となります。 (optional)
+     * @param string $sort                  id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
+     * @param string $direction             項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
+     * @param int    $perPage               1ページあたりの取得項目数。最大:50件 (optional, default to 10)
+     * @param int    $page                  ページ番号を指定。 (optional, default to 1)
+     * @param bool   $includingPrivate      非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
+     * @param bool   $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
+     * @param bool   $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     *
+     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Kanekoelastic\PhpCodenberg\Model\TemplateList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTemplatesWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplateList';
+        $request = $this->getTemplatesRequest($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders(),
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Kanekoelastic\PhpCodenberg\Model\TemplateList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTemplatesAsync.
+     *
+     * Get template list by query.
+     *
+     * @param string $q                     検索文字列を指定します。template名、キーワードが対象となります。 (optional)
+     * @param string $sort                  id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
+     * @param string $direction             項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
+     * @param int    $perPage               1ページあたりの取得項目数。最大:50件 (optional, default to 10)
+     * @param int    $page                  ページ番号を指定。 (optional, default to 1)
+     * @param bool   $includingPrivate      非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
+     * @param bool   $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
+     * @param bool   $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTemplatesAsync($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
+    {
+        return $this->getTemplatesAsyncWithHttpInfo($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTemplatesAsyncWithHttpInfo.
+     *
+     * Get template list by query.
+     *
+     * @param string $q                     検索文字列を指定します。template名、キーワードが対象となります。 (optional)
+     * @param string $sort                  id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
+     * @param string $direction             項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
+     * @param int    $perPage               1ページあたりの取得項目数。最大:50件 (optional, default to 10)
+     * @param int    $page                  ページ番号を指定。 (optional, default to 1)
+     * @param bool   $includingPrivate      非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
+     * @param bool   $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
+     * @param bool   $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTemplatesAsyncWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
+    {
+        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplateList';
+        $request = $this->getTemplatesRequest($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders(),
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTemplateById'.
+     *
+     * @param int  $templateId            テンプレートのIDを指定します。 (required)
+     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to true)
+     * @param bool $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -289,18 +489,17 @@ class TemplatesApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -313,6 +512,7 @@ class TemplatesApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -333,215 +533,22 @@ class TemplatesApi
     }
 
     /**
-     * Operation getTemplates
+     * Create request for operation 'getTemplates'.
      *
-     * Get template list by query.
-     *
-     * @param  string $q 検索文字列を指定します。template名、キーワードが対象となります。 (optional)
-     * @param  string $sort id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大:50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定。 (optional, default to 1)
-     * @param  bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Kanekoelastic\PhpCodenberg\Model\TemplateList
-     */
-    public function getTemplates($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
-    {
-        list($response) = $this->getTemplatesWithHttpInfo($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats);
-        return $response;
-    }
-
-    /**
-     * Operation getTemplatesWithHttpInfo
-     *
-     * Get template list by query.
-     *
-     * @param  string $q 検索文字列を指定します。template名、キーワードが対象となります。 (optional)
-     * @param  string $sort id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大:50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定。 (optional, default to 1)
-     * @param  bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
-     *
-     * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Kanekoelastic\PhpCodenberg\Model\TemplateList, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getTemplatesWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplateList';
-        $request = $this->getTemplatesRequest($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if ($returnType !== 'string') {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Kanekoelastic\PhpCodenberg\Model\TemplateList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getTemplatesAsync
-     *
-     * Get template list by query.
-     *
-     * @param  string $q 検索文字列を指定します。template名、キーワードが対象となります。 (optional)
-     * @param  string $sort id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大:50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定。 (optional, default to 1)
-     * @param  bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTemplatesAsync($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
-    {
-        return $this->getTemplatesAsyncWithHttpInfo($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getTemplatesAsyncWithHttpInfo
-     *
-     * Get template list by query.
-     *
-     * @param  string $q 検索文字列を指定します。template名、キーワードが対象となります。 (optional)
-     * @param  string $sort id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大:50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定。 (optional, default to 1)
-     * @param  bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTemplatesAsyncWithHttpInfo($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
-    {
-        $returnType = '\Kanekoelastic\PhpCodenberg\Model\TemplateList';
-        $request = $this->getTemplatesRequest($q, $sort, $direction, $perPage, $page, $includingPrivate, $includingCustomFields, $includingFormats);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getTemplates'
-     *
-     * @param  string $q 検索文字列を指定します。template名、キーワードが対象となります。 (optional)
-     * @param  string $sort id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
-     * @param  string $direction 項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
-     * @param  int $perPage 1ページあたりの取得項目数。最大:50件 (optional, default to 10)
-     * @param  int $page ページ番号を指定。 (optional, default to 1)
-     * @param  bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
-     * @param  bool $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
-     * @param  bool $includingFormats フォーマットの情報を含めるかを設定します。 (optional, default to false)
+     * @param string $q                     検索文字列を指定します。template名、キーワードが対象となります。 (optional)
+     * @param string $sort                  id/format_id/name/keywords/created_atを指定できます。 (optional, default to id)
+     * @param string $direction             項目の並び順を指定します。asc(昇順)/desc(降順) (optional, default to desc)
+     * @param int    $perPage               1ページあたりの取得項目数。最大:50件 (optional, default to 10)
+     * @param int    $page                  ページ番号を指定。 (optional, default to 1)
+     * @param bool   $includingPrivate      非公開のテンプレートを含めるかどうかを指定します。 (optional, default to false)
+     * @param bool   $includingCustomFields 可変領域の情報を含めるかを設定します。 (optional, default to false)
+     * @param bool   $includingFormats      フォーマットの情報を含めるかを設定します。 (optional, default to false)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function getTemplatesRequest($q = null, $sort = 'id', $direction = 'desc', $perPage = '10', $page = '1', $includingPrivate = 'false', $includingCustomFields = 'false', $includingFormats = 'false')
     {
-
         $resourcePath = '/templates';
         $formParams = [];
         $queryParams = [];
@@ -582,7 +589,6 @@ class TemplatesApi
             $queryParams['including_formats'] = ObjectSerializer::toQueryValue($includingFormats);
         }
 
-
         // body params
         $_tempBody = null;
 
@@ -608,18 +614,17 @@ class TemplatesApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -632,6 +637,7 @@ class TemplatesApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -652,7 +658,7 @@ class TemplatesApi
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
      * @return array of http client options
@@ -660,8 +666,10 @@ class TemplatesApi
     protected function createHttpClientOption()
     {
         $options = [];
+
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

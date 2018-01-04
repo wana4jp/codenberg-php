@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg;
 
-use \Exception;
+use Exception;
 
 class ApiException extends Exception
 {
@@ -16,26 +16,26 @@ class ApiException extends Exception
     /**
      * The HTTP header of the server response.
      *
-     * @var string[]|null
+     * @var null|string[]
      */
     protected $responseHeaders;
 
     /**
-     * The deserialized response object
+     * The deserialized response object.
      *
      * @var $responseObject;
      */
     protected $responseObject;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string        $message         Error message
      * @param int           $code            HTTP status code
-     * @param string[]|null $responseHeaders HTTP response header
+     * @param null|string[] $responseHeaders HTTP response header
      * @param mixed         $responseBody    HTTP decoded body of the server response either as \stdClass or string
      */
-    public function __construct($message = "", $code = 0, $responseHeaders = [], $responseBody = null)
+    public function __construct($message = '', $code = 0, $responseHeaders = [], $responseBody = null)
     {
         parent::__construct($message, $code);
         $this->responseHeaders = $responseHeaders;
@@ -43,9 +43,9 @@ class ApiException extends Exception
     }
 
     /**
-     * Gets the HTTP response header
+     * Gets the HTTP response header.
      *
-     * @return string[]|null HTTP response header
+     * @return null|string[] HTTP response header
      */
     public function getResponseHeaders()
     {
@@ -53,7 +53,7 @@ class ApiException extends Exception
     }
 
     /**
-     * Gets the HTTP body of the server response either as Json or string
+     * Gets the HTTP body of the server response either as Json or string.
      *
      * @return mixed HTTP body of the server response either as \stdClass or string
      */
@@ -63,11 +63,9 @@ class ApiException extends Exception
     }
 
     /**
-     * Sets the deseralized response object (during deserialization)
+     * Sets the deseralized response object (during deserialization).
      *
      * @param mixed $obj Deserialized response object
-     *
-     * @return void
      */
     public function setResponseObject($obj)
     {
@@ -75,7 +73,7 @@ class ApiException extends Exception
     }
 
     /**
-     * Gets the deseralized response object (during deserialization)
+     * Gets the deseralized response object (during deserialization).
      *
      * @return mixed the deserialized response object
      */

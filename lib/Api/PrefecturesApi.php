@@ -49,7 +49,7 @@ class PrefecturesApi
     }
 
     /**
-     * Operation getPrefectures
+     * Operation getPrefectures.
      *
      * Get prefectures list
      *
@@ -65,7 +65,7 @@ class PrefecturesApi
     }
 
     /**
-     * Operation getPrefecturesWithHttpInfo
+     * Operation getPrefecturesWithHttpInfo.
      *
      * Get prefectures list
      *
@@ -81,6 +81,7 @@ class PrefecturesApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
@@ -108,10 +109,12 @@ class PrefecturesApi
             }
 
             $responseBody = $response->getBody();
+
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
+
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -120,9 +123,8 @@ class PrefecturesApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -139,7 +141,7 @@ class PrefecturesApi
     }
 
     /**
-     * Operation getPrefecturesAsync
+     * Operation getPrefecturesAsync.
      *
      * Get prefectures list
      *
@@ -158,7 +160,7 @@ class PrefecturesApi
     }
 
     /**
-     * Operation getPrefecturesAsyncWithHttpInfo
+     * Operation getPrefecturesAsyncWithHttpInfo.
      *
      * Get prefectures list
      *
@@ -176,10 +178,12 @@ class PrefecturesApi
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
+
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
+
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -188,7 +192,7 @@ class PrefecturesApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
@@ -209,7 +213,7 @@ class PrefecturesApi
     }
 
     /**
-     * Create request for operation 'getPrefectures'
+     * Create request for operation 'getPrefectures'.
      *
      *
      * @throws \InvalidArgumentException
@@ -217,15 +221,12 @@ class PrefecturesApi
      */
     protected function getPrefecturesRequest()
     {
-
         $resourcePath = '/prefectures';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
-
-
 
         // body params
         $_tempBody = null;
@@ -252,18 +253,17 @@ class PrefecturesApi
         } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
+
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -276,6 +276,7 @@ class PrefecturesApi
         }
 
         $defaultHeaders = [];
+
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -296,7 +297,7 @@ class PrefecturesApi
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
      * @return array of http client options
@@ -304,8 +305,10 @@ class PrefecturesApi
     protected function createHttpClientOption()
     {
         $options = [];
+
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

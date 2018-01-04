@@ -2,25 +2,25 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use \ArrayAccess;
-use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
+use ArrayAccess;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 class Format implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'Format';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'id' => 'int',
         'displayId' => 'string',
@@ -36,14 +36,14 @@ class Format implements ModelInterface, ArrayAccess
         'note' => 'string',
         'file' => 'string',
         'mainImage' => 'string',
-        'selectablePapers' => '\Kanekoelastic\PhpCodenberg\Model\Paper[]'
+        'selectablePapers' => '\Kanekoelastic\PhpCodenberg\Model\Paper[]',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'id' => 'int64',
         'displayId' => null,
@@ -59,32 +59,12 @@ class Format implements ModelInterface, ArrayAccess
         'note' => null,
         'file' => null,
         'mainImage' => null,
-        'selectablePapers' => null
+        'selectablePapers' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerTypes()
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerFormats()
-    {
-        return self::$swaggerFormats;
-    }
-
-    /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
@@ -103,11 +83,11 @@ class Format implements ModelInterface, ArrayAccess
         'note' => 'note',
         'file' => 'file',
         'mainImage' => 'main_image',
-        'selectablePapers' => 'selectable_papers'
+        'selectablePapers' => 'selectable_papers',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
@@ -126,11 +106,11 @@ class Format implements ModelInterface, ArrayAccess
         'note' => 'setNote',
         'file' => 'setFile',
         'mainImage' => 'setMainImage',
-        'selectablePapers' => 'setSelectablePapers'
+        'selectablePapers' => 'setSelectablePapers',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
@@ -149,63 +129,18 @@ class Format implements ModelInterface, ArrayAccess
         'note' => 'getNote',
         'file' => 'getFile',
         'mainImage' => 'getMainImage',
-        'selectablePapers' => 'getSelectablePapers'
+        'selectablePapers' => 'getSelectablePapers',
     ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @return array
-     */
-    public static function attributeMap()
-    {
-        return self::$attributeMap;
-    }
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @return array
-     */
-    public static function setters()
-    {
-        return self::$setters;
-    }
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @return array
-     */
-    public static function getters()
-    {
-        return self::$getters;
-    }
-
-    /**
-     * The original name of the model.
-     *
-     * @return string
-     */
-    public function getModelName()
-    {
-        return self::$swaggerModelName;
-    }
-
-    
-
-    
-
-    /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
@@ -230,444 +165,7 @@ class Format implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Show all the invalid properties with reasons.
-     *
-     * @return array invalid properties with reasons
-     */
-    public function listInvalidProperties()
-    {
-        $invalidProperties = [];
-
-        return $invalidProperties;
-    }
-
-    /**
-     * Validate all the properties in the model
-     * return true if all passed
-     *
-     * @return bool True if all properties are valid
-     */
-    public function valid()
-    {
-
-        return true;
-    }
-
-
-    /**
-     * Gets id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param int $id id
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets displayId
-     *
-     * @return string
-     */
-    public function getDisplayId()
-    {
-        return $this->container['displayId'];
-    }
-
-    /**
-     * Sets displayId
-     *
-     * @param string $displayId displayId
-     *
-     * @return $this
-     */
-    public function setDisplayId($displayId)
-    {
-        $this->container['displayId'] = $displayId;
-
-        return $this;
-    }
-
-    /**
-     * Gets name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->container['name'];
-    }
-
-    /**
-     * Sets name
-     *
-     * @param string $name name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets category
-     *
-     * @return string
-     */
-    public function getCategory()
-    {
-        return $this->container['category'];
-    }
-
-    /**
-     * Sets category
-     *
-     * @param string $category カテゴリ名
-     *
-     * @return $this
-     */
-    public function setCategory($category)
-    {
-        $this->container['category'] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Gets width
-     *
-     * @return int
-     */
-    public function getWidth()
-    {
-        return $this->container['width'];
-    }
-
-    /**
-     * Sets width
-     *
-     * @param int $width 幅
-     *
-     * @return $this
-     */
-    public function setWidth($width)
-    {
-        $this->container['width'] = $width;
-
-        return $this;
-    }
-
-    /**
-     * Gets height
-     *
-     * @return int
-     */
-    public function getHeight()
-    {
-        return $this->container['height'];
-    }
-
-    /**
-     * Sets height
-     *
-     * @param int $height 高さ
-     *
-     * @return $this
-     */
-    public function setHeight($height)
-    {
-        $this->container['height'] = $height;
-
-        return $this;
-    }
-
-    /**
-     * Gets depth
-     *
-     * @return int
-     */
-    public function getDepth()
-    {
-        return $this->container['depth'];
-    }
-
-    /**
-     * Sets depth
-     *
-     * @param int $depth 奥行き
-     *
-     * @return $this
-     */
-    public function setDepth($depth)
-    {
-        $this->container['depth'] = $depth;
-
-        return $this;
-    }
-
-    /**
-     * Gets moq
-     *
-     * @return int
-     */
-    public function getMoq()
-    {
-        return $this->container['moq'];
-    }
-
-    /**
-     * Sets moq
-     *
-     * @param int $moq 最小注文数
-     *
-     * @return $this
-     */
-    public function setMoq($moq)
-    {
-        $this->container['moq'] = $moq;
-
-        return $this;
-    }
-
-    /**
-     * Gets spq
-     *
-     * @return int
-     */
-    public function getSpq()
-    {
-        return $this->container['spq'];
-    }
-
-    /**
-     * Sets spq
-     *
-     * @param int $spq 注文単位
-     *
-     * @return $this
-     */
-    public function setSpq($spq)
-    {
-        $this->container['spq'] = $spq;
-
-        return $this;
-    }
-
-    /**
-     * Gets lotPrice
-     *
-     * @return \Kanekoelastic\PhpCodenberg\Model\LotPrice[]
-     */
-    public function getLotPrice()
-    {
-        return $this->container['lotPrice'];
-    }
-
-    /**
-     * Sets lotPrice
-     *
-     * @param \Kanekoelastic\PhpCodenberg\Model\LotPrice[] $lotPrice 注文数別の注文価格
-     *
-     * @return $this
-     */
-    public function setLotPrice($lotPrice)
-    {
-        $this->container['lotPrice'] = $lotPrice;
-
-        return $this;
-    }
-
-    /**
-     * Gets purpose
-     *
-     * @return string[]
-     */
-    public function getPurpose()
-    {
-        return $this->container['purpose'];
-    }
-
-    /**
-     * Sets purpose
-     *
-     * @param string[] $purpose 目的
-     *
-     * @return $this
-     */
-    public function setPurpose($purpose)
-    {
-        $this->container['purpose'] = $purpose;
-
-        return $this;
-    }
-
-    /**
-     * Gets note
-     *
-     * @return string
-     */
-    public function getNote()
-    {
-        return $this->container['note'];
-    }
-
-    /**
-     * Sets note
-     *
-     * @param string $note 備考
-     *
-     * @return $this
-     */
-    public function setNote($note)
-    {
-        $this->container['note'] = $note;
-
-        return $this;
-    }
-
-    /**
-     * Gets file
-     *
-     * @return string
-     */
-    public function getFile()
-    {
-        return $this->container['file'];
-    }
-
-    /**
-     * Sets file
-     *
-     * @param string $file プロダクトのテンプレートファイル
-     *
-     * @return $this
-     */
-    public function setFile($file)
-    {
-        $this->container['file'] = $file;
-
-        return $this;
-    }
-
-    /**
-     * Gets mainImage
-     *
-     * @return string
-     */
-    public function getMainImage()
-    {
-        return $this->container['mainImage'];
-    }
-
-    /**
-     * Sets mainImage
-     *
-     * @param string $mainImage プロダクトのサムネール画像
-     *
-     * @return $this
-     */
-    public function setMainImage($mainImage)
-    {
-        $this->container['mainImage'] = $mainImage;
-
-        return $this;
-    }
-
-    /**
-     * Gets selectablePapers
-     *
-     * @return \Kanekoelastic\PhpCodenberg\Model\Paper[]
-     */
-    public function getSelectablePapers()
-    {
-        return $this->container['selectablePapers'];
-    }
-
-    /**
-     * Sets selectablePapers
-     *
-     * @param \Kanekoelastic\PhpCodenberg\Model\Paper[] $selectablePapers 利用可能な紙
-     *
-     * @return $this
-     */
-    public function setSelectablePapers($selectablePapers)
-    {
-        $this->container['selectablePapers'] = $selectablePapers;
-
-        return $this;
-    }
-    /**
-     * Returns true if offset exists. False otherwise.
-     *
-     * @param integer $offset Offset
-     *
-     * @return boolean
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->container[$offset]);
-    }
-
-    /**
-     * Gets offset.
-     *
-     * @param integer $offset Offset
-     *
-     * @return mixed
-     */
-    public function offsetGet($offset)
-    {
-        return isset($this->container[$offset]) ? $this->container[$offset] : null;
-    }
-
-    /**
-     * Sets value based on offset.
-     *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        if (is_null($offset)) {
-            $this->container[] = $value;
-        } else {
-            $this->container[$offset] = $value;
-        }
-    }
-
-    /**
-     * Unsets offset.
-     *
-     * @param integer $offset Offset
-     *
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
+     * Gets the string presentation of the object.
      *
      * @return string
      */
@@ -682,6 +180,497 @@ class Format implements ModelInterface, ArrayAccess
 
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerTypes()
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
+    }
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @return array
+     */
+    public static function attributeMap()
+    {
+        return self::$attributeMap;
+    }
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @return array
+     */
+    public static function setters()
+    {
+        return self::$setters;
+    }
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @return array
+     */
+    public static function getters()
+    {
+        return self::$getters;
+    }
+
+    /**
+     * The original name of the model.
+     *
+     * @return string
+     */
+    public function getModelName()
+    {
+        return self::$swaggerModelName;
+    }
+
+    /**
+     * Show all the invalid properties with reasons.
+     *
+     * @return array invalid properties with reasons
+     */
+    public function listInvalidProperties()
+    {
+        $invalidProperties = [];
+
+        return $invalidProperties;
+    }
+
+    /**
+     * Validate all the properties in the model
+     * return true if all passed.
+     *
+     * @return bool True if all properties are valid
+     */
+    public function valid()
+    {
+        return true;
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param int $id id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets displayId.
+     *
+     * @return string
+     */
+    public function getDisplayId()
+    {
+        return $this->container['displayId'];
+    }
+
+    /**
+     * Sets displayId.
+     *
+     * @param string $displayId displayId
+     *
+     * @return $this
+     */
+    public function setDisplayId($displayId)
+    {
+        $this->container['displayId'] = $displayId;
+
+        return $this;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param string $name name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets category.
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->container['category'];
+    }
+
+    /**
+     * Sets category.
+     *
+     * @param string $category カテゴリ名
+     *
+     * @return $this
+     */
+    public function setCategory($category)
+    {
+        $this->container['category'] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Gets width.
+     *
+     * @return int
+     */
+    public function getWidth()
+    {
+        return $this->container['width'];
+    }
+
+    /**
+     * Sets width.
+     *
+     * @param int $width 幅
+     *
+     * @return $this
+     */
+    public function setWidth($width)
+    {
+        $this->container['width'] = $width;
+
+        return $this;
+    }
+
+    /**
+     * Gets height.
+     *
+     * @return int
+     */
+    public function getHeight()
+    {
+        return $this->container['height'];
+    }
+
+    /**
+     * Sets height.
+     *
+     * @param int $height 高さ
+     *
+     * @return $this
+     */
+    public function setHeight($height)
+    {
+        $this->container['height'] = $height;
+
+        return $this;
+    }
+
+    /**
+     * Gets depth.
+     *
+     * @return int
+     */
+    public function getDepth()
+    {
+        return $this->container['depth'];
+    }
+
+    /**
+     * Sets depth.
+     *
+     * @param int $depth 奥行き
+     *
+     * @return $this
+     */
+    public function setDepth($depth)
+    {
+        $this->container['depth'] = $depth;
+
+        return $this;
+    }
+
+    /**
+     * Gets moq.
+     *
+     * @return int
+     */
+    public function getMoq()
+    {
+        return $this->container['moq'];
+    }
+
+    /**
+     * Sets moq.
+     *
+     * @param int $moq 最小注文数
+     *
+     * @return $this
+     */
+    public function setMoq($moq)
+    {
+        $this->container['moq'] = $moq;
+
+        return $this;
+    }
+
+    /**
+     * Gets spq.
+     *
+     * @return int
+     */
+    public function getSpq()
+    {
+        return $this->container['spq'];
+    }
+
+    /**
+     * Sets spq.
+     *
+     * @param int $spq 注文単位
+     *
+     * @return $this
+     */
+    public function setSpq($spq)
+    {
+        $this->container['spq'] = $spq;
+
+        return $this;
+    }
+
+    /**
+     * Gets lotPrice.
+     *
+     * @return \Kanekoelastic\PhpCodenberg\Model\LotPrice[]
+     */
+    public function getLotPrice()
+    {
+        return $this->container['lotPrice'];
+    }
+
+    /**
+     * Sets lotPrice.
+     *
+     * @param \Kanekoelastic\PhpCodenberg\Model\LotPrice[] $lotPrice 注文数別の注文価格
+     *
+     * @return $this
+     */
+    public function setLotPrice($lotPrice)
+    {
+        $this->container['lotPrice'] = $lotPrice;
+
+        return $this;
+    }
+
+    /**
+     * Gets purpose.
+     *
+     * @return string[]
+     */
+    public function getPurpose()
+    {
+        return $this->container['purpose'];
+    }
+
+    /**
+     * Sets purpose.
+     *
+     * @param string[] $purpose 目的
+     *
+     * @return $this
+     */
+    public function setPurpose($purpose)
+    {
+        $this->container['purpose'] = $purpose;
+
+        return $this;
+    }
+
+    /**
+     * Gets note.
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->container['note'];
+    }
+
+    /**
+     * Sets note.
+     *
+     * @param string $note 備考
+     *
+     * @return $this
+     */
+    public function setNote($note)
+    {
+        $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets file.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->container['file'];
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param string $file プロダクトのテンプレートファイル
+     *
+     * @return $this
+     */
+    public function setFile($file)
+    {
+        $this->container['file'] = $file;
+
+        return $this;
+    }
+
+    /**
+     * Gets mainImage.
+     *
+     * @return string
+     */
+    public function getMainImage()
+    {
+        return $this->container['mainImage'];
+    }
+
+    /**
+     * Sets mainImage.
+     *
+     * @param string $mainImage プロダクトのサムネール画像
+     *
+     * @return $this
+     */
+    public function setMainImage($mainImage)
+    {
+        $this->container['mainImage'] = $mainImage;
+
+        return $this;
+    }
+
+    /**
+     * Gets selectablePapers.
+     *
+     * @return \Kanekoelastic\PhpCodenberg\Model\Paper[]
+     */
+    public function getSelectablePapers()
+    {
+        return $this->container['selectablePapers'];
+    }
+
+    /**
+     * Sets selectablePapers.
+     *
+     * @param \Kanekoelastic\PhpCodenberg\Model\Paper[] $selectablePapers 利用可能な紙
+     *
+     * @return $this
+     */
+    public function setSelectablePapers($selectablePapers)
+    {
+        $this->container['selectablePapers'] = $selectablePapers;
+
+        return $this;
+    }
+
+    /**
+     * Returns true if offset exists. False otherwise.
+     *
+     * @param int $offset Offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->container[$offset]);
+    }
+
+    /**
+     * Gets offset.
+     *
+     * @param int $offset Offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
+    }
+
+    /**
+     * Sets value based on offset.
+     *
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($offset === null) {
+            $this->container[] = $value;
+        } else {
+            $this->container[$offset] = $value;
+        }
+    }
+
+    /**
+     * Unsets offset.
+     *
+     * @param int $offset Offset
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->container[$offset]);
+    }
 }
-
-

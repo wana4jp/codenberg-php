@@ -2,25 +2,39 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use \ArrayAccess;
-use \Kanekoelastic\PhpCodenberg\ObjectSerializer;
+use ArrayAccess;
+use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 class TemplateQuery implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
+    const SORT_ID = 'id';
+
+    const SORT_FORMAT_ID = 'format_id';
+
+    const SORT_NAME = 'name';
+
+    const SORT_KEYWORDS = 'keywords';
+
+    const SORT_CREATED_AT = 'created_at';
+
+    const DIRECTION_ASC = 'asc';
+
+    const DIRECTION_DESC = 'desc';
+
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'TemplateQuery';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'q' => 'string',
         'sort' => 'string',
@@ -29,14 +43,14 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         'page' => 'int',
         'includingPrivate' => 'bool',
         'includingCustomFields' => 'bool',
-        'includingFormats' => 'bool'
+        'includingFormats' => 'bool',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'q' => null,
         'sort' => null,
@@ -45,32 +59,12 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         'page' => 'int64',
         'includingPrivate' => null,
         'includingCustomFields' => null,
-        'includingFormats' => null
+        'includingFormats' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerTypes()
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerFormats()
-    {
-        return self::$swaggerFormats;
-    }
-
-    /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
@@ -82,11 +76,11 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         'page' => 'page',
         'includingPrivate' => 'including_private',
         'includingCustomFields' => 'including_custom_fields',
-        'includingFormats' => 'including_formats'
+        'includingFormats' => 'including_formats',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
@@ -98,11 +92,11 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         'page' => 'setPage',
         'includingPrivate' => 'setIncludingPrivate',
         'includingCustomFields' => 'setIncludingCustomFields',
-        'includingFormats' => 'setIncludingFormats'
+        'includingFormats' => 'setIncludingFormats',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
@@ -114,12 +108,74 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         'page' => 'getPage',
         'includingPrivate' => 'getIncludingPrivate',
         'includingCustomFields' => 'getIncludingCustomFields',
-        'includingFormats' => 'getIncludingFormats'
+        'includingFormats' => 'getIncludingFormats',
     ];
 
     /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['q'] = isset($data['q']) ? $data['q'] : null;
+        $this->container['sort'] = isset($data['sort']) ? $data['sort'] : 'id';
+        $this->container['direction'] = isset($data['direction']) ? $data['direction'] : 'desc';
+        $this->container['perPage'] = isset($data['perPage']) ? $data['perPage'] : 10;
+        $this->container['page'] = isset($data['page']) ? $data['page'] : 1;
+        $this->container['includingPrivate'] = isset($data['includingPrivate']) ? $data['includingPrivate'] : false;
+        $this->container['includingCustomFields'] = isset($data['includingCustomFields']) ? $data['includingCustomFields'] : false;
+        $this->container['includingFormats'] = isset($data['includingFormats']) ? $data['includingFormats'] : false;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerTypes()
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
+    }
+
+    /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -129,7 +185,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -139,7 +195,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -158,18 +214,8 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const SORT_ID = 'id';
-    const SORT_FORMAT_ID = 'format_id';
-    const SORT_NAME = 'name';
-    const SORT_KEYWORDS = 'keywords';
-    const SORT_CREATED_AT = 'created_at';
-    const DIRECTION_ASC = 'asc';
-    const DIRECTION_DESC = 'desc';
-    
-
-    
     /**
-     * Gets allowable values of the enum
+     * Gets allowable values of the enum.
      *
      * @return string[]
      */
@@ -183,9 +229,9 @@ class TemplateQuery implements ModelInterface, ArrayAccess
             self::SORT_CREATED_AT,
         ];
     }
-    
+
     /**
-     * Gets allowable values of the enum
+     * Gets allowable values of the enum.
      *
      * @return string[]
      */
@@ -195,32 +241,6 @@ class TemplateQuery implements ModelInterface, ArrayAccess
             self::DIRECTION_ASC,
             self::DIRECTION_DESC,
         ];
-    }
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['q'] = isset($data['q']) ? $data['q'] : null;
-        $this->container['sort'] = isset($data['sort']) ? $data['sort'] : 'id';
-        $this->container['direction'] = isset($data['direction']) ? $data['direction'] : 'desc';
-        $this->container['perPage'] = isset($data['perPage']) ? $data['perPage'] : 10;
-        $this->container['page'] = isset($data['page']) ? $data['page'] : 1;
-        $this->container['includingPrivate'] = isset($data['includingPrivate']) ? $data['includingPrivate'] : false;
-        $this->container['includingCustomFields'] = isset($data['includingCustomFields']) ? $data['includingCustomFields'] : false;
-        $this->container['includingFormats'] = isset($data['includingFormats']) ? $data['includingFormats'] : false;
     }
 
     /**
@@ -233,6 +253,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         $invalidProperties = [];
 
         $allowedValues = $this->getSortAllowableValues();
+
         if (!in_array($this->container['sort'], $allowedValues)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'sort', must be one of '%s'",
@@ -241,6 +262,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
         }
 
         $allowedValues = $this->getDirectionAllowableValues();
+
         if (!in_array($this->container['direction'], $allowedValues)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'direction', must be one of '%s'",
@@ -253,27 +275,27 @@ class TemplateQuery implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-
         $allowedValues = $this->getSortAllowableValues();
+
         if (!in_array($this->container['sort'], $allowedValues)) {
             return false;
         }
         $allowedValues = $this->getDirectionAllowableValues();
+
         if (!in_array($this->container['direction'], $allowedValues)) {
             return false;
         }
         return true;
     }
 
-
     /**
-     * Gets q
+     * Gets q.
      *
      * @return string
      */
@@ -283,7 +305,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets q
+     * Sets q.
      *
      * @param string $q 検索文字列を指定します。template名、キーワードが対象となります。
      *
@@ -297,7 +319,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets sort
+     * Gets sort.
      *
      * @return string
      */
@@ -307,16 +329,17 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets sort
+     * Sets sort.
      *
-     * @param string $sort id/format_id/name/keywords/created_atを指定できます。
+     * @param string $sort id/format_id/name/keywords/created_atを指定できます
      *
      * @return $this
      */
     public function setSort($sort)
     {
         $allowedValues = $this->getSortAllowableValues();
-        if (!is_null($sort) && !in_array($sort, $allowedValues)) {
+
+        if ($sort !== null && !in_array($sort, $allowedValues)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'sort', must be one of '%s'",
@@ -330,7 +353,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets direction
+     * Gets direction.
      *
      * @return string
      */
@@ -340,7 +363,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets direction
+     * Sets direction.
      *
      * @param string $direction 項目の並び順を指定します。asc(昇順)/desc(降順)
      *
@@ -349,7 +372,8 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     public function setDirection($direction)
     {
         $allowedValues = $this->getDirectionAllowableValues();
-        if (!is_null($direction) && !in_array($direction, $allowedValues)) {
+
+        if ($direction !== null && !in_array($direction, $allowedValues)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'direction', must be one of '%s'",
@@ -363,7 +387,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets perPage
+     * Gets perPage.
      *
      * @return int
      */
@@ -373,7 +397,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets perPage
+     * Sets perPage.
      *
      * @param int $perPage 1ページあたりの取得項目数。最大:50件
      *
@@ -387,7 +411,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets page
+     * Gets page.
      *
      * @return int
      */
@@ -397,9 +421,9 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets page
+     * Sets page.
      *
-     * @param int $page ページ番号を指定。
+     * @param int $page ページ番号を指定
      *
      * @return $this
      */
@@ -411,7 +435,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets includingPrivate
+     * Gets includingPrivate.
      *
      * @return bool
      */
@@ -421,9 +445,9 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets includingPrivate
+     * Sets includingPrivate.
      *
-     * @param bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します。
+     * @param bool $includingPrivate 非公開のテンプレートを含めるかどうかを指定します
      *
      * @return $this
      */
@@ -435,7 +459,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets includingCustomFields
+     * Gets includingCustomFields.
      *
      * @return bool
      */
@@ -445,9 +469,9 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets includingCustomFields
+     * Sets includingCustomFields.
      *
-     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します。
+     * @param bool $includingCustomFields 可変領域の情報を含めるかを設定します
      *
      * @return $this
      */
@@ -459,7 +483,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets includingFormats
+     * Gets includingFormats.
      *
      * @return bool
      */
@@ -469,9 +493,9 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets includingFormats
+     * Sets includingFormats.
      *
-     * @param bool $includingFormats フォーマットの情報を含めるかを設定します。
+     * @param bool $includingFormats フォーマットの情報を含めるかを設定します
      *
      * @return $this
      */
@@ -481,12 +505,13 @@ class TemplateQuery implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -496,7 +521,7 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -508,14 +533,12 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if ($offset === null) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -525,31 +548,10 @@ class TemplateQuery implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
 }
-
-
