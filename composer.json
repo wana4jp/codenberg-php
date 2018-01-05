@@ -33,6 +33,6 @@
         }
     },
     "autoload-dev": {
-        "psr-4": { "Kanekoelastic\\PhpCodenberg\\" : "test/" }
+        "psr-4": { "Kanekoelastic\\PhpCodenberg\\" : "tests/" }
     }
 }
