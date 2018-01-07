@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg;
 
-class Template_previewsApiTest extends \PHPUnit\Framework\TestCase
+class TemplatePreviewsApiTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Setup before running any test cases.

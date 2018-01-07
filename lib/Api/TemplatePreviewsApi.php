@@ -13,7 +13,7 @@ use Kanekoelastic\PhpCodenberg\Configuration;
 use Kanekoelastic\PhpCodenberg\HeaderSelector;
 use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
-class Template_previewsApi
+class TemplatePreviewsApi
 {
     /**
      * @var ClientInterface
