@@ -14,14 +14,14 @@ class PreviewRequest implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'PreviewRequest';
+    protected static $modelName = 'PreviewRequest';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'templateId' => 'string',
         'page' => 'int',
         'customFields' => '\Kanekoelastic\PhpCodenberg\Model\CustomFieldValue[]',
@@ -32,7 +32,7 @@ class PreviewRequest implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'templateId' => null,
         'page' => 'int64',
         'customFields' => null,
@@ -114,9 +114,9 @@ class PreviewRequest implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -124,9 +124,9 @@ class PreviewRequest implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -167,7 +167,7 @@ class PreviewRequest implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**

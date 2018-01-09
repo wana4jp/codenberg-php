@@ -26,22 +26,22 @@ class ObjectSerializer
             return $data;
         } elseif (is_object($data)) {
             $values = [];
-            $formats = $data::swaggerFormats();
+            $formats = $data::formats();
 
-            foreach ($data::swaggerTypes() as $property => $swaggerType) {
+            foreach ($data::types() as $property => $type) {
                 $getter = $data::getters()[$property];
                 $value = $data->$getter();
 
                 if ($value !== null
-                    && !in_array($swaggerType, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)
-                    && method_exists($swaggerType, 'getAllowableEnumValues')
-                    && !in_array($value, $swaggerType::getAllowableEnumValues())) {
-                    $imploded = implode("', '", $swaggerType::getAllowableEnumValues());
-                    throw new \InvalidArgumentException("Invalid value for enum '${swaggerType}', must be one of: '${imploded}'");
+                    && !in_array($type, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)
+                    && method_exists($type, 'getAllowableEnumValues')
+                    && !in_array($value, $type::getAllowableEnumValues())) {
+                    $imploded = implode("', '", $type::getAllowableEnumValues());
+                    throw new \InvalidArgumentException("Invalid value for enum '${type}', must be one of: '${imploded}'");
                 }
 
                 if ($value !== null) {
-                    $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $swaggerType, $formats[$property]);
+                    $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $type, $formats[$property]);
                 }
             }
             return (object) $values;
@@ -265,7 +265,7 @@ class ObjectSerializer
         }
         $instance = new $class();
 
-        foreach ($instance::swaggerTypes() as $property => $type) {
+        foreach ($instance::types() as $property => $type) {
             $propertySetter = $instance::setters()[$property];
 
             if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {

@@ -14,14 +14,14 @@ class MediumThumb implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'Medium_thumb';
+    protected static $modelName = 'Medium_thumb';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'default' => 'string',
         'square' => 'string',
     ];
@@ -31,7 +31,7 @@ class MediumThumb implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'default' => null,
         'square' => null,
     ];
@@ -108,9 +108,9 @@ class MediumThumb implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -118,9 +118,9 @@ class MediumThumb implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -161,7 +161,7 @@ class MediumThumb implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**
