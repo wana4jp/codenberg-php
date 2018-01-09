@@ -14,14 +14,14 @@ class CustomFieldFont implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'CustomField_font';
+    protected static $modelName = 'CustomField_font';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'id' => 'int',
         'wid' => 'int',
         'name' => 'string',
@@ -34,7 +34,7 @@ class CustomFieldFont implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'id' => 'int64',
         'wid' => 'int64',
         'name' => null,
@@ -126,9 +126,9 @@ class CustomFieldFont implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -136,9 +136,9 @@ class CustomFieldFont implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -179,7 +179,7 @@ class CustomFieldFont implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**

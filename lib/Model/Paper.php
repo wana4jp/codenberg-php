@@ -14,14 +14,14 @@ class Paper implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'Paper';
+    protected static $modelName = 'Paper';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'id' => 'int',
         'name' => 'string',
         'note' => 'string',
@@ -32,7 +32,7 @@ class Paper implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'id' => 'int64',
         'name' => null,
         'note' => null,
@@ -114,9 +114,9 @@ class Paper implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -124,9 +124,9 @@ class Paper implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -167,7 +167,7 @@ class Paper implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**

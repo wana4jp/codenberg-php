@@ -16,14 +16,14 @@ interface ModelInterface
      *
      * @return array
      */
-    public static function swaggerTypes();
+    public static function types();
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
-    public static function swaggerFormats();
+    public static function formats();
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name.

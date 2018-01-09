@@ -14,14 +14,14 @@ class TemplateList implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'TemplateList';
+    protected static $modelName = 'TemplateList';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'count' => 'int',
         'page' => 'int',
         'perPage' => 'int',
@@ -33,7 +33,7 @@ class TemplateList implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'count' => 'int64',
         'page' => 'int64',
         'perPage' => 'int64',
@@ -120,9 +120,9 @@ class TemplateList implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -130,9 +130,9 @@ class TemplateList implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -173,7 +173,7 @@ class TemplateList implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**

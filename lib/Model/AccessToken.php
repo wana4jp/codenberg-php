@@ -14,14 +14,14 @@ class AccessToken implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'AccessToken';
+    protected static $modelName = 'AccessToken';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'tokenType' => 'string',
         'accessToken' => 'string',
         'expires' => '\DateTime',
@@ -32,7 +32,7 @@ class AccessToken implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'tokenType' => null,
         'accessToken' => null,
         'expires' => 'date-time',
@@ -114,9 +114,9 @@ class AccessToken implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -124,9 +124,9 @@ class AccessToken implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -167,7 +167,7 @@ class AccessToken implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**

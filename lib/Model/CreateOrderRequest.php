@@ -14,14 +14,14 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'CreateOrderRequest';
+    protected static $modelName = 'CreateOrderRequest';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static $types = [
         'templateId' => 'string',
         'confirmation' => 'bool',
         'name' => 'string',
@@ -42,7 +42,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static $formats = [
         'templateId' => null,
         'confirmation' => null,
         'name' => null,
@@ -174,9 +174,9 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerTypes()
+    public static function types()
     {
-        return self::$swaggerTypes;
+        return self::$types;
     }
 
     /**
@@ -184,9 +184,9 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      *
      * @return array
      */
-    public static function swaggerFormats()
+    public static function formats()
     {
-        return self::$swaggerFormats;
+        return self::$formats;
     }
 
     /**
@@ -227,7 +227,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      */
     public function getModelName()
     {
-        return self::$swaggerModelName;
+        return self::$modelName;
     }
 
     /**
