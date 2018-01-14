@@ -53,14 +53,14 @@ class AuthApi
      *
      * getAccessToken
      *
-     * @param string $authorization Authorization (required)
-     *
      * @throws \Kanekoelastic\PhpCodenberg\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Kanekoelastic\PhpCodenberg\Model\AccessToken
      */
-    public function getAccessToken($authorization)
+    public function getAccessToken()
     {
+        $authorization = $this->config->getAuthorizationKey();
+
         list($response) = $this->getAccessTokenWithHttpInfo($authorization);
         return $response;
     }
@@ -147,13 +147,13 @@ class AuthApi
      *
      * getAccessToken
      *
-     * @param string $authorization Authorization (required)
-     *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAccessTokenAsync($authorization)
+    public function getAccessTokenAsync()
     {
+        $authorization = $this->config->getAuthorizationKey();
+
         return $this->getAccessTokenAsyncWithHttpInfo($authorization)
             ->then(
                 function ($response) {
