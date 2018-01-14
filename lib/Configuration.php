@@ -306,6 +306,16 @@ class Configuration
     }
 
     /**
+     * Get auth key for access token request
+     *
+     * @return string
+     */
+    public function getAuthorizationKey()
+    {
+        return base64_encode($this->apiKey . ':' . $this->secretKey);
+    }
+
+    /**
      * Gets the default configuration instance.
      *
      * @return Configuration
