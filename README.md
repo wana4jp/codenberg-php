@@ -1,21 +1,48 @@
 # codenberg-php
 
-TODO
+A simple wrapper for Codenberg API, written with PHP5.
 
 ## Requirements
 
-PHP 5.6 and later
+* PHP >= 5.6
+* [Guzzle](https://github.com/guzzle/guzzle) library,
+* (optional) PHPUnit to run tests.
 
-## Installation & Usage
-### Composer
+## Install
 
-TODO
+Via Composer:
 
-## Getting Started
+```bash
+$ composer require kanekoelastic/codenberg-php dev-master
+```
 
-TODO
+## Basic usage
 
+```php
+<?php
 
-## Author
+require_once(__DIR__ . '/vendor/autoload.php');
 
-TODO
+$client = new \GuzzleHttp\Client();
+$config = new \Kanekoelastic\PhpCodenberg\Configuration(
+    'your-api-key',
+    'your-secret-key'
+);
+
+try {
+    $authApi = new \Kanekoelastic\PhpCodenberg\Api\AuthApi($client, $config);
+    $accessToken = $authApi->getAccessToken();
+
+    $config->setAccessToken($access_token);
+    $templatesApi = new Kanekoelastic\PhpCodenberg\Api\TemplatesApi($client, $config);
+
+    print_r($templatesApi->getTemplates());
+} catch (Exception $e) {
+    echo 'Exception when calling codenberg Api', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+## License
+
+`codenberg-php` is licensed under the Apache License 2.0 - see the  [LICENSE](LICENSE/)  file for details

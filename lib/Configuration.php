@@ -64,9 +64,14 @@ class Configuration
 
     /**
      * Constructor.
+     *
+     * @param string $apiKey
+     * @param string $secretKey
      */
-    public function __construct()
+    public function __construct($apiKey = '', $secretKey = '')
     {
+        $this->apiKey = $apiKey;
+        $this->secretKey = $secretKey;
         $this->tempFolderPath = sys_get_temp_dir();
     }
 
