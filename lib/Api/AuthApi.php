@@ -2,52 +2,14 @@
 
 namespace Kanekoelastic\PhpCodenberg\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
 use Kanekoelastic\PhpCodenberg\ApiException;
-use Kanekoelastic\PhpCodenberg\Configuration;
-use Kanekoelastic\PhpCodenberg\HeaderSelector;
 use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
-class AuthApi
+class AuthApi extends ApiBase
 {
-    /**
-     * @var ClientInterface
-     */
-    protected $client;
-
-    /**
-     * @var Configuration
-     */
-    protected $config;
-
-    /**
-     * @param ClientInterface $client
-     * @param Configuration   $config
-     * @param HeaderSelector  $selector
-     */
-    public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
-    ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
-    }
-
-    /**
-     * @return Configuration
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
     /**
      * Operation getAccessToken.
      *
@@ -306,26 +268,5 @@ class AuthApi
             $headers,
             $httpBody
         );
-    }
-
-    /**
-     * Create http client option.
-     *
-     * @throws \RuntimeException on file opening failure
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
-            }
-        }
-
-        return $options;
     }
 }
