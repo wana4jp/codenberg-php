@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class TemplateList extends ModelBase implements ArrayAccess
+class TemplateList extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

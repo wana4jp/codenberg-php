@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class Paper implements ModelInterface, ArrayAccess
+class Paper extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

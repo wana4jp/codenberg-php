@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class AccessToken extends ModelBase implements ArrayAccess
+class AccessToken extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class LotPrice extends ModelBase implements ArrayAccess
+class LotPrice extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

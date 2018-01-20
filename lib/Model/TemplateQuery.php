@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class TemplateQuery extends ModelBase implements ArrayAccess
+class TemplateQuery extends ModelBase implements \ArrayAccess
 {
     const SORT_ID = 'id';
 

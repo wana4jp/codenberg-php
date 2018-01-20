@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class OrderList implements ModelInterface, ArrayAccess
+class OrderList implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.

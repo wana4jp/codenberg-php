@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use Kanekoelastic\PhpCodenberg\Configuration;
+use Kanekoelastic\PhpCodenberg\HeaderSelector;
 
 abstract class ApiBase
 {
@@ -22,13 +23,16 @@ abstract class ApiBase
     /**
      * @param Configuration   $config
      * @param ClientInterface $client
+     * @param HeaderSelector  $selector
      */
     public function __construct(
         Configuration $config,
-        ClientInterface $client = null
+        ClientInterface $client = null,
+        HeaderSelector $selector = null
     ) {
         $this->config = $config;
         $this->client = $client ?: new Client();
+        $this->headerSelector = $selector ?: new HeaderSelector();
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class Format extends ModelBase implements ArrayAccess
+class Format extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

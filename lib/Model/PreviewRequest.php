@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class PreviewRequest implements ModelInterface, ArrayAccess
+class PreviewRequest extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.
