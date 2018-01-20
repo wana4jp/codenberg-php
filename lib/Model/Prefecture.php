@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class Prefecture implements ModelInterface, ArrayAccess
+class Prefecture extends ModelBase implements  \ArrayAccess
 {
     /**
      * The original name of the model.

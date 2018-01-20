@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class CreateOrderRequest extends ModelBase implements ArrayAccess
+class CreateOrderRequest extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

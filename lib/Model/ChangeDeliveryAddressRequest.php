@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class ChangeDeliveryAddressRequest extends ModelBase implements ArrayAccess
+class ChangeDeliveryAddressRequest extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

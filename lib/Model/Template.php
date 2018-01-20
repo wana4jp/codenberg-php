@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class Template extends ModelBase implements ArrayAccess
+class Template extends ModelBase implements \ArrayAccess
 {
     const STATUS__PUBLIC = 'public';
 

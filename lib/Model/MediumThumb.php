@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class MediumThumb implements ModelInterface, ArrayAccess
+class MediumThumb extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

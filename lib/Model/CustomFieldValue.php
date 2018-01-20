@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class CustomFieldValue extends ModelBase implements ArrayAccess
+class CustomFieldValue extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

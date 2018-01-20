@@ -6,6 +6,8 @@ use Kanekoelastic\PhpCodenberg\ObjectSerializer;
 
 abstract class ModelBase
 {
+    const DISCRIMINATOR = null;
+
     /**
      * Associative array for storing property values.
      *
@@ -37,7 +39,7 @@ abstract class ModelBase
      */
     public static function types()
     {
-        return self::$types;
+        return static::$types;
     }
 
     /**
@@ -47,7 +49,7 @@ abstract class ModelBase
      */
     public static function formats()
     {
-        return self::$formats;
+        return static::$formats;
     }
 
     /**
@@ -58,7 +60,7 @@ abstract class ModelBase
      */
     public static function attributeMap()
     {
-        return self::$attributeMap;
+        return static::$attributeMap;
     }
 
     /**
@@ -68,7 +70,7 @@ abstract class ModelBase
      */
     public static function setters()
     {
-        return self::$setters;
+        return static::$setters;
     }
 
     /**
@@ -78,7 +80,7 @@ abstract class ModelBase
      */
     public static function getters()
     {
-        return self::$getters;
+        return static::$getters;
     }
 
     /**
@@ -88,7 +90,7 @@ abstract class ModelBase
      */
     public function getModelName()
     {
-        return self::$modelName;
+        return static::$modelName;
     }
 
     /**

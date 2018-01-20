@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class TemplateThumb extends ModelBase implements ArrayAccess
+class TemplateThumb extends ModelBase implements \ArrayAccess
 {
     /**
      * The original name of the model.

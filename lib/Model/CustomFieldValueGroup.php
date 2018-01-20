@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class CustomFieldValueGroup extends ModelBase implements ArrayAccess
+class CustomFieldValueGroup extends ModelBase implements \ArrayAccess
 {
     const DISCRIMINATOR = null;
 

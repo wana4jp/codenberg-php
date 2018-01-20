@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class CustomField extends ModelBase implements ArrayAccess
+class CustomField extends ModelBase implements \ArrayAccess
 {
     const DISCRIMINATOR = null;
 

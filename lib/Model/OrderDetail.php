@@ -2,7 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-class OrderDetail implements ModelInterface, ArrayAccess
+class OrderDetail extends ModelBase implements \ArrayAccess
 {
     const STATUS_CHECKING = 'checking';
 
