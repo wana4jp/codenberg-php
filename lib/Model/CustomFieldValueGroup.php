@@ -2,10 +2,7 @@
 
 namespace Kanekoelastic\PhpCodenberg\Model;
 
-use ArrayAccess;
-use Kanekoelastic\PhpCodenberg\ObjectSerializer;
-
-class CustomFieldValueGroup implements ModelInterface, ArrayAccess
+class CustomFieldValueGroup extends ModelBase implements ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -72,84 +69,6 @@ class CustomFieldValueGroup implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
-     */
-    public static function types()
-    {
-        return self::$types;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
-     */
-    public static function formats()
-    {
-        return self::$formats;
-    }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @return array
-     */
-    public static function attributeMap()
-    {
-        return self::$attributeMap;
-    }
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
-     */
-    public static function setters()
-    {
-        return self::$setters;
-    }
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
-     */
-    public static function getters()
-    {
-        return self::$getters;
-    }
-
-    /**
-     * The original name of the model.
-     *
-     * @return string
-     */
-    public function getModelName()
-    {
-        return self::$modelName;
     }
 
     /**
