@@ -23,19 +23,19 @@ $ composer require kanekoelastic/codenberg-php dev-master
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-$client = new \GuzzleHttp\Client();
-$config = new \Kanekoelastic\PhpCodenberg\Configuration(
+$config = \Kanekoelastic\PhpCodenberg\Configuration::getInstance(
     'your-api-key',
     'your-secret-key'
 );
 
 try {
-    $authApi = new \Kanekoelastic\PhpCodenberg\Api\AuthApi($client, $config);
-    $accessToken = $authApi->getAccessToken();
+    // Get Access Token first
+    $authApi = new \Kanekoelastic\PhpCodenberg\Api\AuthApi($config);
+    $token = $authApi->getAccessToken();
+    $config->setAccessToken($token->getAccessToken());
 
-    $config->setAccessToken($access_token);
-    $templatesApi = new Kanekoelastic\PhpCodenberg\Api\TemplatesApi($client, $config);
-
+    // Then call API
+    $templatesApi = new \Kanekoelastic\PhpCodenberg\Api\TemplatesApi($config);
     print_r($templatesApi->getTemplates());
 } catch (Exception $e) {
     echo 'Exception when calling codenberg Api', $e->getMessage(), PHP_EOL;
