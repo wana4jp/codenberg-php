@@ -60,18 +60,28 @@ class Configuration
      */
     protected $tempFolderPath;
 
-    private static $defaultConfiguration;
+    /**
+     * Instance of this class.
+     *
+     * @var Configuration
+     */
+    private static $instance;
 
     /**
      * Constructor.
      *
      * @param string $apiKey
      * @param string $secretKey
+     * @param string $accessToken
      */
-    public function __construct($apiKey = '', $secretKey = '')
-    {
+    private function __construct(
+        $apiKey = '',
+        $secretKey = '',
+        $accessToken = ''
+    ) {
         $this->apiKey = $apiKey;
         $this->secretKey = $secretKey;
+        $this->accessToken = $accessToken;
         $this->tempFolderPath = sys_get_temp_dir();
     }
 
@@ -323,25 +333,31 @@ class Configuration
     /**
      * Gets the default configuration instance.
      *
+     * @param string $apiKey
+     * @param string $secretKey
+     * @param string $accessToken
      * @return Configuration
      */
-    public static function getDefaultConfiguration()
-    {
-        if (self::$defaultConfiguration === null) {
-            self::$defaultConfiguration = new self();
+    public static function getInstance(
+        $apiKey = '',
+        $secretKey = '',
+        $accessToken = ''
+    ) {
+        if (self::$instance === null) {
+            self::$instance = new self($apiKey, $secretKey, $accessToken);
         }
 
-        return self::$defaultConfiguration;
+        return self::$instance;
     }
 
     /**
      * Sets the detault configuration instance.
      *
-     * @param Configuration $config An instance of the Configuration Object
+     * @param Configuration $instance An instance of the Configuration Object
      */
-    public static function setDefaultConfiguration(self $config)
+    public static function setInstance(self $instance)
     {
-        self::$defaultConfiguration = $config;
+        self::$instance = $config;
     }
 
     /**
