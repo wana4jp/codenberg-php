@@ -1,5 +1,7 @@
 # codenberg-php
 
+[![Build Status](https://travis-ci.org/kanekoelastic/codenberg-php.svg?branch=master)](https://travis-ci.org/kanekoelastic/codenberg-php)
+
 A simple wrapper for Codenberg API, written with PHP5.
 
 ## Requirements
