@@ -2,41 +2,29 @@
 
 namespace Kanekoelastic\PhpCodenberg;
 
+use Kanekoelastic\PhpCodenberg\Model\AccessToken;
+
 class AccessTokenTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * Setup before running any test case.
-     */
-    public static function setUpBeforeClass()
-    {
-    }
-
-    /**
-     * Clean up after running all test cases.
-     */
-    public static function tearDownAfterClass()
-    {
-    }
-
     /**
      * Setup before running each test case.
      */
     public function setUp()
     {
+        $data = [
+            'tokenType'   => 'foo',
+            'accessToken' => 'bar',
+            'expires'     => 'baz',
+        ];
+        $this->model = new AccessToken($data);
     }
 
     /**
-     * Clean up after running each test case.
+     * Test "getTokenType".
      */
-    public function tearDown()
+    public function testGetTokenType()
     {
-    }
-
-    /**
-     * Test "AccessToken".
-     */
-    public function testAccessToken()
-    {
+        $this->assertSame('foo', $this->model->getTokenType());
     }
 
     /**
