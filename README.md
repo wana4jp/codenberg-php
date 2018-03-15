@@ -1,6 +1,7 @@
 # codenberg-php
 
 [![Build Status](https://travis-ci.org/kanekoelastic/codenberg-php.svg?branch=master)](https://travis-ci.org/kanekoelastic/codenberg-php)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A simple wrapper for Codenberg API, written with PHP5.
 
